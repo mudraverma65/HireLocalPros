@@ -5,18 +5,25 @@ import heroImage1 from '../images/hero-image.jpg';
 const useStyles = makeStyles((theme) => ({
   hero: {
     backgroundColor: '#fff',
-    padding: theme.spacing(15, 0),
+    padding: theme.spacing(8, 2), // Adjusted padding on the sides
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     textAlign: 'center',
     overflowX: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column', // Change flex direction to column on mobile devices
+      padding: theme.spacing(4, 2), // Adjusted padding on mobile devices
+    },
   },
   content: {
     maxWidth: '50%',
-    marginRight: '20px',
-    paddingLeft: '20px',
+    marginLeft: '20px', // Added left margin
     textAlign: 'justify',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '100%', // Adjusted maximum width for mobile devices
+      marginLeft: 0, // Remove left margin on mobile devices
+    },
   },
   title: {
     fontSize: '2.5rem',
@@ -24,16 +31,24 @@ const useStyles = makeStyles((theme) => ({
     color: '#333',
     fontWeight: 'bold',
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
-    letterSpacing: '1px', // Added letter spacing for a professional look
-    lineHeight: '1.2', // Adjusted line height for better readability
+    letterSpacing: '1px',
+    lineHeight: '1.2',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.8rem', // Decreased font size for mobile devices
+      marginBottom: theme.spacing(2), // Adjusted margin bottom for mobile devices
+    },
   },
   description: {
     fontSize: '1.2rem',
     marginBottom: theme.spacing(5),
     color: '#555',
     fontStyle: 'italic',
-    letterSpacing: '0.5px', // Added letter spacing for a professional look
-    lineHeight: '1.5', // Adjusted line height for better readability
+    letterSpacing: '0.5px',
+    lineHeight: '1.5',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1rem', // Decreased font size for mobile devices
+      marginBottom: theme.spacing(3), // Adjusted margin bottom for mobile devices
+    },
   },
   button: {
     fontSize: '1.2rem',
@@ -50,15 +65,20 @@ const useStyles = makeStyles((theme) => ({
   imageContainer: {
     display: 'flex',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(4), // Adjusted margin top for mobile devices
+    },
   },
   image: {
-    width: '70%',
+    width: '80%', // Decreased image size to 80% of the container
     height: 'auto',
     marginBottom: theme.spacing(3),
-    marginTop: '40px',
-    marginRight: '20px',
-    marginLeft: '40px',
     cursor: 'pointer',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%', // Make the image fill the container width on mobile devices
+      margin: 0, // Remove margins on mobile devices
+      marginTop: theme.spacing(2), // Adjusted margin top for mobile devices
+    },
   },
 }));
 

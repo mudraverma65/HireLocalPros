@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(3),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr',
+      gap: theme.spacing(6),
+    },
   },
   card: {
     backgroundColor: '#fff',
@@ -41,10 +45,16 @@ const useStyles = makeStyles((theme) => ({
     width: '90px',
     height: '80px',
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   arrowIcon: {
     fontSize: '2rem',
     color: '#555',
+    [theme.breakpoints.down('sm')]: {
+      transform: 'rotate(180deg)',
+    },
   },
   content: {
     fontSize: '1.1rem',
@@ -76,7 +86,9 @@ const Section = () => {
         </Card>
         <ArrowForwardIosIcon className={classes.arrowIcon} />
         <Card className={classes.card}>
-          <img src={image2} alt="Book an Appointment" className={classes.image} />
+          {window.innerWidth >= 600 && (
+            <img src={image2} alt="Book an Appointment" className={classes.image} />
+          )}
           <CardContent>
             <Typography variant="h5" component="h2" className={classes.title}>
               Book an Appointment

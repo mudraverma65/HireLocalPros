@@ -9,7 +9,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(4),
     margin: theme.spacing(4),
-    marginTop: theme.spacing(12), // Adjust the top margin to give space for the navbar
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(12), // Adjust the top margin to give space for the navbar
+    },
   },
   formHeading: {
     marginBottom: theme.spacing(4),
@@ -19,13 +21,16 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Arial, sans-serif',
     fontSize: '2.5rem',
     textTransform: 'uppercase',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.8rem',
+    },
   },
   formField: {
     marginBottom: theme.spacing(4),
     width: '100%',
   },
   submitButton: {
-    width: '200px',
+    width: '100%',
     marginTop: theme.spacing(2),
     backgroundColor: '#000',
     color: '#fff',
