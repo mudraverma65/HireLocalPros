@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Link } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
