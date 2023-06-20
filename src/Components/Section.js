@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(5),
     gap: theme.spacing(3),
-    marginLeft: theme.spacing(2), 
-    marginRight: theme.spacing(2), 
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   card: {
     backgroundColor: '#fff',
@@ -32,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   title: {
-    fontSize: '1.5rem',
+    fontSize: '2rem',
     marginBottom: theme.spacing(1),
     color: '#333',
+    fontWeight: 'bold',
   },
   image: {
     width: '90px',
@@ -46,9 +47,10 @@ const useStyles = makeStyles((theme) => ({
     color: '#555',
   },
   content: {
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     color: '#777',
     textAlign: 'center',
+    lineHeight: '1.4',
   },
 }));
 
@@ -57,8 +59,8 @@ const Section = () => {
 
   return (
     <div className={classes.section}>
-          <Typography variant="h4" align="center" gutterBottom>
-          Easy Steps to Fulfill Your Requests
+      <Typography variant="h4" align="center" gutterBottom>
+        Easy Steps to Fulfill Your Requests
       </Typography>
       <div className={classes.cardContainer}>
         <Card className={classes.card}>
@@ -68,19 +70,19 @@ const Section = () => {
               Choose a Service
             </Typography>
             <Typography variant="body1" className={classes.content}>
-              Search for the service you need and pick a provider after viewing customer reviews.
+              Search for the service you need and select a provider after reviewing customer reviews.
             </Typography>
           </CardContent>
         </Card>
         <ArrowForwardIosIcon className={classes.arrowIcon} />
         <Card className={classes.card}>
-          <img src={image2} alt="Book an appointment" className={classes.image} />
+          <img src={image2} alt="Book an Appointment" className={classes.image} />
           <CardContent>
             <Typography variant="h5" component="h2" className={classes.title}>
               Book an Appointment
             </Typography>
             <Typography variant="body1" className={classes.content}>
-              Book an appointment with the service provider by discussing the schedule with the provider.
+              Schedule an appointment with the service provider by discussing the available slots.
             </Typography>
           </CardContent>
         </Card>
@@ -92,7 +94,7 @@ const Section = () => {
               Job Done
             </Typography>
             <Typography variant="body1" className={classes.content}>
-              Your job is done. You will receive an appointment confirmation soon.
+              Your job is done. You will receive a confirmation of the appointment soon.
             </Typography>
           </CardContent>
         </Card>
