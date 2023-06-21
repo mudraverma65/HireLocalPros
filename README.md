@@ -12,9 +12,9 @@
 
 ## Links
 
-* Website URL: https://willowy-belekoy-ffcca0.netlify.app/  
-* Assignments Git Repo: https://git.cs.dal.ca/kalapala/csci-5709-assignments.git
-* Assignment 1 Git URL: https://git.cs.dal.ca/kalapala/csci-5709-assignments/-/tree/main/Assignment1 
+* Website URL: https://main--chimerical-rugelach-4eb7b0.netlify.app/  
+* Project Git Repo: https://git.cs.dal.ca/manavbhai/csci_5709_group03.git
+* Project Proposal Prototype Git URL: https://git.cs.dal.ca/manavbhai/csci_5709_group03.git 
 
 
 ## Run Locally
@@ -22,15 +22,8 @@
 Clone the project
 
 ```bash
-  git clone https://git.cs.dal.ca/kalapala/csci-5709-assignments.git
+  git clone https://git.cs.dal.ca/manavbhai/csci_5709_group03.git
 ```
-Go to the Assignment1 directory
-
-```bash
-  cd assignment1
-```
-
-
 Install dependencies
 
 ```bash
@@ -72,23 +65,22 @@ Add the following dependencies:
 * web-vitals@2.1.4
 
 
-
-
-    
-
-
 ## References
+* AppSeed. (2023). MUI React Coding Landing Page. [Online]. Available: https://blog.appseed.us/mui-react-coding-landing-page/. Accessed on: June 20, 2023.
 
-* “Using the State Hook – React,” legacy.reactjs.org. [Online]. Available:   https://legacy.reactjs.org/docs/hooks-state.html (Accessed May 29, 2023).
-* npm, "Bootstrap," npmjs.com. [Online]. Available: https://www.npmjs.com/package/bootstrap. [Accessed: May. 29, 2023].
-* Application Logo URL:  https://www.logodesign.net/studio-design/0/NjA4/Q09NUEFOWSBOQU1F/0?sf=
-* Profile picture Logo URL: https://www.logodesign.net/studio-design/0/MTAwMDA%253D/cHJvZmlsZSBwaWN0dXJl/0?sf=
-* Bootstrap. "Bootstrap Navbar Documentation." [Online]. Available: https://getbootstrap.com/docs/4.0/components/navbar/. [Accessed: May 29, 2023].
-* Bootstrap. "Bootstrap Spacing Utilities Documentation." [Online]. Available: https://getbootstrap.com/docs/5.1/utilities/spacing/. [Accessed: May 29, 2023].
-* Bootstrap. "Bootstrap Containers Documentation." [Online]. Available: https://getbootstrap.com/docs/5.0/layout/containers/. [Accessed: May 29, 2023].
-* Bootstrap. "Bootstrap Card Components Documentation." [Online]. Available: https://getbootstrap.com/docs/4.0/components/card/. [Accessed: May 29, 2023].
-* "How to Validate Forms in React." freecodecamp.org. [Online]. Available: https://www.freecodecamp.org/news/how-to-validate-forms-in-react/. [Accessed: May 29, 2023].
-* React-Bootstrap. "Modal - React Bootstrap." [Online]. Available: https://react-bootstrap.github.io/components/modal/. [Accessed: May 29, 2023].
+* LogRocket. (2023). Using React Responsive to Implement Responsive Design. LogRocket Blog. [Online]. Available: https://blog.logrocket.com/using-react-responsive-to-implement-responsive-design/. Accessed on: June 20, 2023.
+
+* Simplilearn. (2023). How to Create a Functional React Dropdown Menu. Simplilearn Tutorials. [Online]. Available: https://www.simplilearn.com/tutorials/reactjs-tutorial/how-to-create-functional-react-dropdown-menu. Accessed on: June 20, 2023.
+
+* The MUI Team. (2023). Modal - Material-UI. Material-UI. [Online]. Available: https://mui.com/material-ui/react-modal/. Accessed on: June 20, 2023.
+* Image 1: https://img1.wsimg.com/isteam/ip/720aa643-00e5-42b5-92a8-83ff8252d6b7/Champion%20Plumbing%20logo%20only%20for%20website.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=h:500,cg:true
+
+* Image 2: https://www.iconpacks.net/icons/4/free-laptop-search-icon-12530-thumb.png
+
+* Image 3: https://cdn1.vectorstock.com/i/1000x1000/55/10/task-complete-job-done-work-complete-icon-vector-27195510.jpg
+
+
+
 
 
 
