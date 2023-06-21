@@ -8,13 +8,17 @@
 
 
 * [Limysh Kalapala](lm657206@dal.ca) 
+* [Pallavi Marni](pl381965@dal.ca)
+* [Mudra Verma](mudraverma@dal.ca)
+* [Manil Patel](manilpatel@dal.ca)
+* [Manav Bhikadiya](bh957167@dal.ca)
 
 
 ## Links
 
 * Website URL: https://main--chimerical-rugelach-4eb7b0.netlify.app/  
 * Project Git Repo: https://git.cs.dal.ca/manavbhai/csci_5709_group03.git
-* Project Proposal Prototype Git URL: https://git.cs.dal.ca/manavbhai/csci_5709_group03.git 
+* Project Proposal Prototype Git URL: https://git.cs.dal.ca/manavbhai/csci_5709_group03 
 
 
 ## Run Locally
