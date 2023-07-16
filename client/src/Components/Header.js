@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from '../images/logo.png';
+import useStyles from '../styles/styles';
 import {
   AppBar,
   Toolbar,
   Button,
-  makeStyles,
   InputBase,
   IconButton,
   Menu,
@@ -13,59 +13,6 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    backgroundColor: '#fff',
-    height: '60px',
-    [theme.breakpoints.down('sm')]: {
-      height: 'auto',
-      marginBottom: theme.spacing(2),
-    },
-  },
-  logo: {
-    width: '150px',
-    height: 'auto',
-    [theme.breakpoints.down('sm')]: {
-      width: '120px',
-    },
-  },
-  searchContainer: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: theme.spacing(2),
-    },
-  },
-  searchBox: {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: theme.spacing(2),
-    padding: theme.spacing(0, 1),
-    width: '400px',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      maxWidth: '300px',
-    },
-  },
-  searchInput: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  searchIcon: {
-    padding: theme.spacing(1),
-  },
-  menuButton: {
-    color: '#333',
-    fontWeight: 'bold',
-    '&:hover': {
-      color: '#888',
-    },
-  },
-}));
 
 const Header = () => {
   const classes = useStyles();
@@ -110,11 +57,14 @@ const Header = () => {
               open={Boolean(menuAnchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem component={Link} to="/" onClick={handleMenuClose}>
+              {/* <MenuItem component={Link} to="/" onClick={handleMenuClose}>
                 Home
+              </MenuItem> */}
+              <MenuItem component={Link} to="/services" onClick={handleMenuClose}>
+                Services
               </MenuItem>
-              <MenuItem component={Link} to="/faqs" onClick={handleMenuClose}>
-                FAQs
+              <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
+                About Us
               </MenuItem>
               <MenuItem component={Link} to="/contactus" onClick={handleMenuClose}>
                 Contact Us
@@ -130,16 +80,16 @@ const Header = () => {
             <Button
               className={classes.menuButton}
               component={Link}
-              to="/"
+              to="/services"
             >
-              Home
+              Services
             </Button>
             <Button
               className={classes.menuButton}
               component={Link}
-              to="/faqs"
+              to="/about"
             >
-              FAQs
+              About Us
             </Button>
             <Button
               className={classes.menuButton}
