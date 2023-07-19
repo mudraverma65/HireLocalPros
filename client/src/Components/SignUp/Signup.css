@@ -1,0 +1,100 @@
+p {
+    margin: 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+h4 {
+    margin: 0;
+}
+
+.formHeader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form {
+    margin-top: 20px;
+    width: 50%;
+}
+
+.title {
+    color: #27374D;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #27374D;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+
+label {
+    margin-top: 20px;
+    color: #27374D;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.required {
+    color: red;
+}
+
+.inputField {
+    background-color: transparent;
+    border-radius: 10px;
+    border: 1px solid #27374D;
+    width: 100%;
+}
+
+.inputField:focus {
+    background-color: transparent;
+    border: 1px solid #27374D;
+}
+
+.link {
+    text-decoration: none;
+    color: #27374D;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: #526D82;
+}
+
+.forgot {
+    float: right;
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.error {
+    background-color: #FFDADA;
+    color: #DD4343;
+    font-weight: 400;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.error p {
+    margin-left: 10px;
+}

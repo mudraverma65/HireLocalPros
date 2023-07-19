@@ -160,9 +160,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '30px',
     fontSize: '18px',
   },
-  title: {
-    paddingBottom: '15px',
-  },
   subtitle: {
     opacity: '0.4',
     paddingBottom: '30px',
@@ -274,6 +271,7 @@ const useStyles = makeStyles((theme) => ({
     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)',
     letterSpacing: '1px',
     lineHeight: '1.2',
+    paddingBottom: '15px',
     [theme.breakpoints.down('sm')]: {
       fontSize: '1.8rem', // Decreased font size for mobile devices
       marginBottom: theme.spacing(2), // Adjusted margin bottom for mobile devices
@@ -295,12 +293,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.2rem',
     fontWeight: 'bold',
     color: '#fff',
-    backgroundColor: '#007bff',
+    backgroundColor: '#27374D',
     padding: theme.spacing(1, 3),
     borderRadius: '4px',
+    width: "100%",
+    marginTop: "20px",
+    border: 'none',
     transition: 'background-color 0.3s ease-in-out',
     '&:hover': {
-      backgroundColor: '#0056b3',
+      backgroundColor: '#526D82',
+      border: 'none'
     },
   },
   imageContainer: {
@@ -319,6 +321,20 @@ const useStyles = makeStyles((theme) => ({
       width: '100%', // Make the image fill the container width on mobile devices
       margin: 0, // Remove margins on mobile devices
       marginTop: theme.spacing(2), // Adjusted margin top for mobile devices
+    },
+  },
+  loginForm: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(12), // Adjust the top margin to give space for the navbar
+    },
+    [theme.breakpoints.up("xs")]: {
+      marginTop: theme.spacing(10), // Adjust the top margin to give space for the navbar
     },
   },
 }));
