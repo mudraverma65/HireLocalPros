@@ -5,6 +5,8 @@ import useStyles from "../../styles/styles.js";
 import { useFormik } from "formik";
 import { SignUpValidationSchema } from "../../util/validationSchema";
 import CancelIcon from "@mui/icons-material/Cancel";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CreateUser } from "../../services/user.service";
@@ -14,6 +16,7 @@ const Signup = () => {
   const classes = useStyles();
   const [isServiceProvider, setIsServiceProvider] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -26,6 +29,7 @@ const Signup = () => {
       bio: "",
       location: "",
       price: "",
+      confirmPassword: "",
     },
     validationSchema: SignUpValidationSchema,
     onSubmit: async (data) => {
@@ -69,6 +73,11 @@ const Signup = () => {
       }
     },
   });
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevVisible) => !prevVisible);
+  };
+
   return (
     <Grid container justify="center">
       <Grid item xs={12} sm={8} md={6}>
@@ -112,14 +121,35 @@ const Signup = () => {
             <label>
               Password <span className="required">*</span>
             </label>
+            <div className="password-container">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="form-control inputField"
+                placeholder="Password *"
+                required
+              />
+              <span
+                className="toggle-password"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? <RemoveRedEyeIcon style={{fontSize: "20px"}} /> : <VisibilityOffIcon style={{fontSize: "20px"}} />}
+              </span>
+            </div>
+            <label>
+              Confirm Password <span className="required">*</span>
+            </label>
             <input
               type="password"
-              name="password"
-              value={formik.values.password}
+              name="confirmPassword"
+              value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className="form-control inputField"
-              placeholder="Password *"
+              placeholder="Confirm Password *"
               required
             />
             <label>
@@ -238,6 +268,13 @@ const Signup = () => {
                 <p>{formik.errors.password}</p>
               </div>
             )}
+            {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword && (
+                <div className="error">
+                  <CancelIcon />
+                  <p>{formik.errors.confirmPassword}</p>
+                </div>
+              )}
             {formik.touched.name && formik.errors.name && (
               <div className="error">
                 <CancelIcon />

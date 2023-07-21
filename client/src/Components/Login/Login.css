@@ -54,6 +54,7 @@ label {
     border-radius: 10px;
     border: 1px solid #27374D;
     width: 100%;
+    padding-right: 30px;
 }
 
 .inputField:focus {
@@ -105,6 +106,18 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {

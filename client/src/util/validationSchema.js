@@ -31,4 +31,7 @@ export const SignUpValidationSchema = Yup.object().shape({
   contact: Yup.string()
     .matches(/^\d{10}$/, "Invalid Phone Number. Should be of 10 Digits.")
     .required("Phone Number is Required."),
+  confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords Must Match")
+      .required("Required"),
 });
