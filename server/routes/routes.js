@@ -4,15 +4,20 @@ const UserController = require("../controllers/userController");
 const PostController = require("../controllers/postController");
 const AppointmentController = require("../controllers/appointmentController");
 const ReviewController = require("../controllers/reviewController");
+const authGuard = require("../middlewares/authguard");
 
 // user routes
 router.post("/signUp", UserController.signUp);
-router.get("/getUser/:id", UserController.getUser);
-router.get("/getAllUsers", UserController.getAllUsers);
-router.get("/deleteUser/:id", UserController.deleteUser);
-router.post("/updateUser/:id", UserController.updateUser);
 router.post("/login", UserController.loginUser);
 router.post("/resetPassword", UserController.resetPassword);
+
+router.get("/deleteUser/:id", authGuard, UserController.deleteUser);
+router.post("/updateUser/:id", authGuard, UserController.updateUser);
+router.get("/getUser/:id", authGuard, UserController.getUser);
+router.get("/getAllUsers", authGuard, UserController.getAllUsers);
+router.get("/getAllServiceProviders",authGuard, UserController.getAllServiceProviders);
+router.get("/getAllNormalUsers", authGuard, UserController.getAllNormalUsers);
+router.get("/getUserFromToken", authGuard, UserController.getUserFromToken);
 
 // post routes
 router.post("/createPost", PostController.createPost);
