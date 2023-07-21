@@ -12,13 +12,14 @@ export const AuthProvider = ({ children }) => {
       console.log(user);
       const response = await Login(user);
       if (response?.data?.success) {
+        localStorage.setItem("AccessToken", response?.data?.AccessToken);
         localStorage.setItem("userId", response?.data?.user?._id);
         localStorage.setItem(
           "serviceProvider",
           response?.data?.user?.isServiceProvider
         );
         setUser(true);
-        toast.success(response?.data?.message)
+        toast.success(response?.data?.message);
         return true;
       } else {
         toast.error(response?.data?.message);

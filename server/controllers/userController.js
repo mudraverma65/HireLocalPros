@@ -1,10 +1,16 @@
 const UserService = require("../services/userServices");
+const jwt = require("jsonwebtoken");
 
 exports.signUp = async (req, res) => {
   try {
     const response = await UserService.signUp(req.body);
     if (response?.code) {
-      return res.send({ message: "Email Already exist", success: false });
+      return res.send({
+        response: {
+          errors: response,
+          message: "Email Already exist.",
+        },
+      });
     }
     const data = {
       success: true,
@@ -71,7 +77,20 @@ exports.loginUser = async (req, res) => {
         .status(200)
         .json({ message: "Invalid credentials", success: false });
     }
-    res.send({ message: "Login successful", user: response, success: true });
+    const expirationTime = 5 * 60 * 60;
+    const token = jwt.sign(
+      JSON.parse(JSON.stringify(response)),
+      "localservicemarketplace",
+      {
+        expiresIn: expirationTime,
+      }
+    );
+    res.send({
+      message: "Login successful",
+      user: response,
+      success: true,
+      AccessToken: token,
+    });
   } catch (error) {
     res.status(200).json({ message: error.message, success: false });
   }
@@ -89,6 +108,32 @@ exports.resetPassword = async (req, res) => {
         .json({ message: "Invalid or expired reset token", success: false });
     }
     res.send({ message: "Password reset successful", success: true });
+  } catch (error) {
+    res.status(200).json({ message: error.message, success: false });
+  }
+};
+
+exports.getAllServiceProviders = async (req, res) => {
+  try {
+    const users = await UserService.getAllServiceProviders();
+    res.send(users);
+  } catch (error) {
+    res.status(200).json({ message: error.message, success: false });
+  }
+};
+
+exports.getAllNormalUsers = async (req, res) => {
+  try {
+    const users = await UserService.getAllNormalUsers();
+    res.send(users);
+  } catch (error) {
+    res.status(200).json({ message: error.message, success: false });
+  }
+};
+
+exports.getUserFromToken = async (req, res) => {
+  try {
+    res.send(req.user);
   } catch (error) {
     res.status(200).json({ message: error.message, success: false });
   }

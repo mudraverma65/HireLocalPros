@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import "./Signup.css";
 import useStyles from "../../styles/styles.js";
 import { useFormik } from "formik";
@@ -8,6 +8,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CreateUser } from "../../services/user.service";
+import Spinner from "../Spinner/Spinner";
 
 const Signup = () => {
   const classes = useStyles();
@@ -20,27 +21,47 @@ const Signup = () => {
       email: "",
       password: "",
       contact: "",
+      category: "",
+      experience: "",
+      bio: "",
+      location: "",
+      price: "",
     },
     validationSchema: SignUpValidationSchema,
     onSubmit: async (data) => {
-      setIsLoading(false);
-      const requestBody = {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        contact: data.contact,
-        isServiceProvider: isServiceProvider,
-      };
-
+      let requestBody;
+      if (isServiceProvider) {
+        requestBody = {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          contact: data.contact,
+          isServiceProvider: isServiceProvider,
+          category: data.category,
+          experience: data.experience,
+          bio: data.bio,
+          location: data.location,
+          price: data.price,
+        };
+      } else {
+        requestBody = {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          contact: data.contact,
+          isServiceProvider: isServiceProvider,
+        };
+      }
+      setIsLoading(true);
       try {
         const response = await CreateUser(requestBody);
-        if (response?.data?.success) {
-          setIsLoading(true);
-          toast.success("Signup Success");
+        if (!response?.data?.response?.errors) {
+          setIsLoading(false);
+          toast.success("Signup Success.");
           navigate("/login");
         } else {
           setIsLoading(false);
-          toast.error("Something Went Wrong.");
+          toast.error(response?.data?.response?.message);
         }
       } catch (error) {
         setIsLoading(false);
@@ -51,8 +72,13 @@ const Signup = () => {
   return (
     <Grid container justify="center">
       <Grid item xs={12} sm={8} md={6}>
-        <Card className={classes.loginForm}>
+        <Box className={classes.loginForm}>
           <div className="formHeader">
+            <img
+              src={require("../../images/logo.png")}
+              className={classes.logo}
+              alt="logo"
+            />
             <h4 className="title">SignUp</h4>
             <p className="subtitle">Local Service Marketplace</p>
           </div>
@@ -121,6 +147,85 @@ const Signup = () => {
                 You want to signup as service provider?
               </label>
             </div>
+            {isServiceProvider ? (
+              <>
+                <label>
+                  Category <span className="required">*</span>
+                </label>
+                <select
+                  name="category"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="form-control inputField"
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="plumber">Plumber</option>
+                  <option value="electrician">Electrician</option>
+                  <option value="Carpenter">Carpenter</option>
+                </select>
+                <label>
+                  How many Years of Experience do you have in above mentioned
+                  field? <span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="experience"
+                  value={formik.values.experience}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="form-control inputField"
+                  placeholder="Experience *"
+                  required
+                />
+                <label>
+                  Tell Something about yourself{" "}
+                  <span className="required">*</span>
+                </label>
+                <textarea
+                  type="text"
+                  name="bio"
+                  value={formik.values.bio}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="form-control inputField"
+                  placeholder="Write Here... *"
+                  required
+                />
+                <label>
+                  Location <span className="required">*</span>
+                </label>
+                <select
+                  name="location"
+                  value={formik.values.location}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="form-control inputField"
+                  required
+                >
+                  <option value="">Select location</option>
+                  <option value="plumber">Halifax</option>
+                  <option value="electrician">Toronto</option>
+                  <option value="Carpenter">Calgary</option>
+                </select>
+                <label>
+                  What is your Hourly Rate ?<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="price"
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="form-control inputField"
+                  placeholder="17.5$ *"
+                  required
+                />
+              </>
+            ) : (
+              ""
+            )}
             {formik.touched.email && formik.errors.email && (
               <div className="error">
                 <CancelIcon />
@@ -145,16 +250,23 @@ const Signup = () => {
                 <p>{formik.errors.contact}</p>
               </div>
             )}
-            <button type="submit" className={classes.button}>
-              Signup
-            </button>
+            {isLoading ? (
+              <div className={classes.spinnerContainer}>
+                <Spinner />
+              </div>
+            ) : (
+              <button type="submit" className={classes.button}>
+                Signup
+              </button>
+            )}
+
             <div className="signup">
-              <NavLink to="/signup" className="link">
-                Alreade Have an Account?
+              <NavLink to="/login" className="link">
+                Already Have an Account?
               </NavLink>
             </div>
           </form>
-        </Card>
+        </Box>
       </Grid>
     </Grid>
   );

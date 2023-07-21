@@ -27,6 +27,7 @@ h4 {
     color: #27374D;
     font-size: 30px;
     font-weight: bold;
+    margin-top: 25px;
 }
 
 .subtitle {
@@ -100,8 +101,20 @@ label {
     margin-left: 10px;
 }
 
-@media screen and (max-width: 480px) {
-.form {
-    width: 100%;
+.spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+@media screen and (max-width: 480px) {
+    .form {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .form {
+        width: 70%;
+    }
 }

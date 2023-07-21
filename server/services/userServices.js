@@ -66,3 +66,21 @@ exports.resetPassword = async (email, newPassword) => {
     return error;
   }
 };
+
+exports.getAllServiceProviders = async () => {
+  try {
+    const users = await User.find({ isServiceProvider: true });
+    return users;
+  } catch (error) {
+    return error;
+  }
+};
+
+exports.getAllNormalUsers = async () => {
+  try {
+    const users = await User.find({ isServiceProvider: false });
+    return users;
+  } catch (error) {
+    return error;
+  }
+};

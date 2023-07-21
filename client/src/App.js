@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./Components/LandingPage";
 import ContactUs from "./Components/ContactUs";
 import FAQs from "./Components/FAQs";
-import Footer from "./Components/Footern";
 import Header from "./Components/Header";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/SignUp/Signup";
@@ -12,22 +11,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
 import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
-const theme = createTheme({
-  // Your theme configuration here
-});
 
-function App() {
+const theme = createTheme({});
+
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
       <Router>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-          }}
-        >
+        <div>
           <Header />
           <div style={{ flex: 1 }}>
             <Routes>
@@ -41,11 +33,11 @@ function App() {
               </Route>
             </Routes>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
