@@ -4,8 +4,8 @@ import LandingPage from './Components/LandingPage';
 import ContactUs from './Components/ContactUs';
 import FAQs from './Components/FAQs';
 import Footer from './Components/Footern';
-// import Footer from './Components/Footer';
 import Header from './Components/Header';
+import BookingRequest from './Components/Appointment/BookingRequest'; // Import the BookingRequest component
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -23,6 +23,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/faqs" element={<FAQs />} />
+              <Route path="/booking" element={<BookingRequest />} />
             </Routes>
           </div>
           <Footer />
