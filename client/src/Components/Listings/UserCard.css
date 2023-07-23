@@ -65,7 +65,7 @@
 }
 
 .ProfileCol{
-    width: 50%;
+    width: 55%;
     height: 140px; /* Set a fixed height for the profile column */
   overflow: hidden; /* Add overflow hidden to truncate long descriptions */
   display: -webkit-box;
@@ -80,7 +80,7 @@
 
 .ProfileRatingCol{
 text-align: center;
-width: 30%;
+width: 25%;
 }
 
 .RatingR{
@@ -105,4 +105,15 @@ background-color: #C5D86D;
 padding: 10px 40px;
 display: inline-block;
 position: relative;
+}
+
+.SortFilterContainer {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.SortTitle {
+  margin-right: 10px;
 }

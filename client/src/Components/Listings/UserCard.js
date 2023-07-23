@@ -20,7 +20,7 @@ function UserCard({ users }) {
               <img src={profile} className="ProfileImgResults" alt='logo' />
             </div>
             <div className='ProfileCol'>
-              <Typography variant="h6">{result.name}</Typography>
+              <Typography variant="h6">{result.name} </Typography>
               {/* <body><strong>Category: {result.category}</strong></body> */}
               <Typography variant="subtitle1"><strong>Price: {result.price}</strong></Typography>
               <div className='ProfileDes'>
