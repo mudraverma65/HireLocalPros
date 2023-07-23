@@ -92,7 +92,7 @@
               IconComponent={ArrowDropDownIcon}
             >
               <MenuItem value="">All Locations</MenuItem>
-              <MenuItem value="mumbai">Mumbai</MenuItem>
+              {/* <MenuItem value="mumbai">Mumbai</MenuItem> */}
               <MenuItem value="montreal">Montreal</MenuItem>
               <MenuItem value="vancouver">Vancouver</MenuItem>
               <MenuItem value="toronto">Toronto</MenuItem>

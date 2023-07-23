@@ -25,7 +25,7 @@ function UserCard({ users }) {
             <div className='ProfileCol'>
               <Typography variant="h6">{result.name} </Typography>
               {/* <body><strong>Category: {result.category}</strong></body> */}
-              <Typography variant="subtitle1"><strong>Price: {result.price}</strong></Typography>
+              {/* <Typography variant="subtitle1"><strong>Price: {result.price}</strong></Typography> */}
               {/* <Typography variant="subtitle2"><strong>Location: {result.location}</strong></Typography>
               <Typography variant="body2">Experience: {result.experience} years</Typography> */}
               <div className='ProfileDes'>
