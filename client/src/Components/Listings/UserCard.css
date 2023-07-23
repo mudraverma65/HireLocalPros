@@ -1,0 +1,108 @@
+.Frame{
+    background-color: #ffffff;
+}
+
+.SearchDetails{
+    text-align: center;
+    margin: auto;
+    padding: 20px 0;
+    padding-top: 90px;
+}
+
+.ResultsRow {
+    border: 1px solid #27374d;
+    padding: 10px 0;
+    margin: 0 auto 30px;
+    width: 80%;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    height: 200px;
+    /* overflow: hidden; */
+}
+
+.ProfileImgCol {
+    text-align: center;
+    width: 20%;
+}
+
+.PrimaryButton {
+    background-color: #27374d;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+  }
+
+  .SecondaryButton {
+    background-color: #526d83;
+    color: #ffffff;
+    border: 2px solid #9db2bf;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Additional styles for hover and focus effects */
+  .PrimaryButton:hover, .SecondaryButton:hover {
+    opacity: 0.9;
+  }
+  
+  .PrimaryButton:focus, .SecondaryButton:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+
+.ProfileImgResults {
+    border-radius: 20px;
+    height: 170px;
+    width: 170px;
+}
+
+.ProfileCol{
+    width: 50%;
+    height: 140px; /* Set a fixed height for the profile column */
+  overflow: hidden; /* Add overflow hidden to truncate long descriptions */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show only 3 lines of text */
+  -webkit-box-orient: vertical;
+}
+
+.ProfileDesCol{
+    margin: auto;
+    width: 40%;
+}
+
+.ProfileRatingCol{
+text-align: center;
+width: 30%;
+}
+
+.RatingR{
+    color: #526d82;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+/* .ViewProfile{
+    display: none;
+} */
+
+.ButtonS{
+cursor: pointer;
+color: #333333;
+border-width: 0px;
+border-radius: 50px;
+font-size: 16px;
+font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+font-weight: 600;
+background-color: #C5D86D;
+padding: 10px 40px;
+display: inline-block;
+position: relative;
+}
