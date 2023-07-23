@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import './UserCard.css';
 import profile from '../../images/profile.jpg';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import WorkIcon from '@mui/icons-material/Work';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function UserCard({ users }) {
   const navigate = useNavigate();
@@ -23,8 +26,24 @@ function UserCard({ users }) {
               <Typography variant="h6">{result.name} </Typography>
               {/* <body><strong>Category: {result.category}</strong></body> */}
               <Typography variant="subtitle1"><strong>Price: {result.price}</strong></Typography>
+              {/* <Typography variant="subtitle2"><strong>Location: {result.location}</strong></Typography>
+              <Typography variant="body2">Experience: {result.experience} years</Typography> */}
               <div className='ProfileDes'>
                 <Typography variant="body1">{result.bio}</Typography>
+              </div>
+              <div className="DetailsLine">
+                <div className="DetailItem">
+                  <WorkIcon fontSize="small" />
+                  <Typography variant="subtitle2" className="DetailValue">{result.experience} years</Typography>
+                </div>
+                <div className="DetailItem">
+                  <LocationOnIcon fontSize="small" />
+                  <Typography variant="subtitle2" className="DetailValue">{result.location}</Typography>
+                </div>
+                <div className="DetailItem">
+                <AttachMoneyIcon fontSize="small" />
+                  <Typography variant="subtitle2" className="DetailValue">{result.price}</Typography>
+                </div>
               </div>
             </div>
             <div className='ProfileRatingCol'>

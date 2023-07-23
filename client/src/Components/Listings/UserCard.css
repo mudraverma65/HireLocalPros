@@ -66,10 +66,10 @@
 
 .ProfileCol{
     width: 55%;
-    height: 140px; /* Set a fixed height for the profile column */
+    height: 160px; /* Set a fixed height for the profile column */
   overflow: hidden; /* Add overflow hidden to truncate long descriptions */
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Show only 3 lines of text */
+  -webkit-line-clamp: 4; /* Show only 3 lines of text */
   -webkit-box-orient: vertical;
 }
 
@@ -107,13 +107,42 @@ display: inline-block;
 position: relative;
 }
 
-.SortFilterContainer {
+.SortFilterContainerMain{
   width: 80%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin: auto;
+  margin-top: 10px;
+  /* margin-bottom: 20px; */
+}
+
+.SortContainer {
+  display: flex;
+  align-items: center;
+}
+
+.FilterContainer{
+  display: flex;
+  align-items: center;
 }
 
 .SortTitle {
   margin-right: 10px;
+}
+
+.DetailsLine {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.DetailItem {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.DetailValue {
+  margin-left: 6px;
 }
