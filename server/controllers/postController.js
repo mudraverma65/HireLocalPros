@@ -62,13 +62,26 @@ exports.getPostInformation = async (req, res) => {
   try {
     const response = await PostService.getPostInformation(req.params.id);
     if (!response) {
-      return res.status(404).json({ message: "Post not found" });
+      return res.status(200).json({ message: "Post not found" });
     }
     res.send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.getAllUserInformation = async (req, res) => {
+  try {
+    const response = await PostService.getAllUserInformation(req.params.id);
+    if (!response) {
+      return res.status(200).json({ message: "User not found" });
+    }
+    res.send(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 
 exports.getAllPostsByUser = async (req, res) => {
   try {
