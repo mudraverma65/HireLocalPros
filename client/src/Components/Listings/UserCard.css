@@ -147,6 +147,8 @@ position: relative;
   margin-left: 6px;
 }
 
+
+
 @media (max-width: 600px){
   .ResultsRow {
     border-radius: 10px;
@@ -168,7 +170,7 @@ position: relative;
 }
 .ProfileRatingCol {
   text-align: center;
-  width: 20%;
+  width: 15%;
 }
 .ViewProfile {
   display: none;
@@ -207,6 +209,40 @@ position: relative;
 
 .FilterContainer{
   display: block;
+}
+
+.category-card-container {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.category-card{
+  padding: 5px;
+}
+
+.icon-container{
+  width: 60px;
+  height: 60px;
+}
+
+.category-headings{
+  font-size: 24px!important;
+}
+
+.SortFilterContainerMain{
+  width: 90%;
+}
+
+.SortTitle{
+  font-size: 16px!important;
+}
+
+.select-container{
+  font-size: 14px!important;
+}
+
+.DisplayR{
+  display: none;
 }
 
 }

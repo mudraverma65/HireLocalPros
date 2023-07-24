@@ -48,7 +48,7 @@ function UserCard({ users }) {
             </div>
             <div className='ProfileRatingCol'>
               <div className='RatingR'>{result.rating}</div>
-              <Typography variant="body1">Rating</Typography>
+              <Typography variant="body1" className='DisplayR'>Rating</Typography>
               <div className='ViewProfile'>
                 <div className='PrimaryButton' onClick={() => handleViewProfile(result)}>View Profile</div>
               </div>

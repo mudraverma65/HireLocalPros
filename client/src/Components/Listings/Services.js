@@ -30,7 +30,7 @@ const categoryData = [
   { category: "Massage Therapist", icon: <Spa /> },
 ];
 
-const CategoryCard = () => {
+const Services = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate(); // Get the navigate function from react-router-dom
 
@@ -42,10 +42,10 @@ const CategoryCard = () => {
 
   return (
     <div>
-      <Typography variant="h4" className="sectionHeadings" align="center" gutterBottom>
-        Categories
+      <Typography variant="h4" className="servicesHeadings" align="center" gutterBottom>
+        Services
       </Typography>
-      <div className="category-card-container">
+      <div className="services-container">
         {categoryData.map((categoryItem) => (
           <div
             key={categoryItem.category}
@@ -68,4 +68,4 @@ const CategoryCard = () => {
   );
 };
 
-export default CategoryCard;
+export default Services;

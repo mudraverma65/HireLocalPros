@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
 import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
 import CategoryUserList from "./Components/Listings/CategoryUserList";
+import Services from "./Components/Listings/Services";
 
 const theme = createTheme({});
 
@@ -28,6 +29,7 @@ const App = () => {
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot" element={<Forgotpassword />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/services" element={<Services />} />
               <Route path="/category/:category" element={<CategoryUserList />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/contactus" element={<ContactUs />} />
