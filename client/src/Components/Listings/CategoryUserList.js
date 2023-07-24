@@ -87,6 +87,11 @@ const CategoryUserList = () => {
         }
     };
 
+    const capitalizeFirstLetter = (str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+
+
     
 
     console.log(users)
@@ -95,7 +100,7 @@ const CategoryUserList = () => {
       <div className="Frame">
         <div className="SearchDetails">
           <div className="SearchTitle">
-            <Typography variant="h4" className="category-headings">Category: {category}</Typography>
+            <Typography variant="h4" className="category-headings">Category: {capitalizeFirstLetter(category)}</Typography>
           </div>
           <div className="SortFilterContainerMain">
           <div className="SortContainer"> 
