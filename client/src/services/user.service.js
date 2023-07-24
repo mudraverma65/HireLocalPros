@@ -2,6 +2,7 @@ import axios from "axios";
 import api from "./interceptor";
 
 const USER_AUTH_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+// const USER_AUTH_BASE_URL = process.env.LOCAL_BACKEND_URL;
 
 export const CreateUser = (data) =>
   axios.post(`${USER_AUTH_BASE_URL}/signUp`, data);
