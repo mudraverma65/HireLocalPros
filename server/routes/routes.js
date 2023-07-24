@@ -27,6 +27,7 @@ router.get("/getAllPosts", PostController.getAllPosts);
 router.post("/updatePost/:id", PostController.updatePost);
 router.get("/deletePost/:id", PostController.deletePost);
 router.get("/postInformation/:id", PostController.getPostInformation);
+router.get("/userInformation/:id", PostController.getAllUserInformation);
 router.get("/getAllPostsofUser/:id", PostController.getAllPostsByUser);
 router.post("/scheduleAppointment", AppointmentController.scheduleAppointment);
 router.get("/cancelAppointment/:id", AppointmentController.cancelAppointment);

@@ -304,6 +304,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#526D82",
       border: "none",
     },
+    cursor: "pointer",
   },
   imageContainer: {
     display: "flex",
@@ -349,6 +350,53 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  detailsPageContainer: {
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    [theme.breakpoints.up("md")]: {
+      marginTop: theme.spacing(12), // Adjust the top margin to give space for the navbar
+    },
+    [theme.breakpoints.up("xs")]: {
+      marginTop: theme.spacing(10), // Adjust the top margin to give space for the navbar
+      width: "95%",
+    },
+  },
+  leftContainer: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    textAlign: "center",
+  },
+  rightContainer: {
+    display: "flex",
+    justifyContent: "left",
+    alignItems: "left",
+    flexDirection: "column",
+  },
+  detailsPageContentContainer: {
+    marginTop: "20px",
+  },
+  modal: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#fff",
+    borderRadius: "20px",
+    padding: "20px",
+    [theme.breakpoints.up("md")]: {
+      width: "95%",
+    },
+    [theme.breakpoints.up("xs")]: {
+      width: "90%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "40%",
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "25%",
+    },
   },
 }));
 

@@ -11,8 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
 import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
-import CategoryUserList from "./Components/Listings/CategoryUserList";
-import Services from "./Components/Listings/Services";
+import DetailsPage from "./Components/DetailsPage/DetailsPage";
 
 const theme = createTheme({});
 
@@ -34,6 +33,7 @@ const App = () => {
               <Route element={<ProtectedRoute />}>
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/faqs" element={<FAQs />} />
+                <Route path="/details" element={<DetailsPage />} />
               </Route>
             </Routes>
           </div>
