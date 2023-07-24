@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a6965b-7350-4727-964a-13cdbe11bf9e" name="Changes" comment="moved to directory" />
+    <list default="true" id="78a6965b-7350-4727-964a-13cdbe11bf9e" name="Changes" comment="working frontend" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +55,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="moved to directory" />
-    <option name="LAST_COMMIT_MESSAGE" value="moved to directory" />
+    <MESSAGE value="working frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="working frontend" />
   </component>
 </project>
