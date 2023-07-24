@@ -160,9 +160,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '30px',
     fontSize: '18px',
   },
-  title: {
-    paddingBottom: '15px',
-  },
+
   subtitle: {
     opacity: '0.4',
     paddingBottom: '30px',
