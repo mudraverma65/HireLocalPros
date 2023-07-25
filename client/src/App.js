@@ -14,7 +14,7 @@ import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
 import DetailsPage from "./Components/DetailsPage/DetailsPage";
 import Services from "./Components/Listings/Services"
 import CategoryUserList from "./Components/Listings/CategoryUserList";
-
+import BookingRequest from './Components/Appointment/BookingRequest'; // Import the BookingRequest component
 const theme = createTheme({});
 
 const App = () => {
@@ -36,6 +36,7 @@ const App = () => {
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/faqs" element={<FAQs />} />
                 <Route path="/details" element={<DetailsPage />} />
+                <Route path="/booking" element={<BookingRequest />} />
               </Route>
             </Routes>
           </div>
