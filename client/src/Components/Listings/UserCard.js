@@ -11,7 +11,7 @@ function UserCard({ users }) {
   const navigate = useNavigate();
 
   const handleViewProfile = (profileData) => {
-    navigate('/profile', { state: { profileData } });
+    navigate('/details', { state: { profileData } });
   };
 
   return (
