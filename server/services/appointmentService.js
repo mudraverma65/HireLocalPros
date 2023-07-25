@@ -8,14 +8,12 @@ exports.scheduleAppointment = async (appointmentDetails) => {
       appointmentTime,
       appointmentDate,
     });
-
     if (existingAppointment) {
       return {
         success: false,
         message: "This slot is already booked. Please, choose another one.",
       };
     }
-
     const appointment = new Appointment(appointmentDetails);
     return await appointment.save();
   } catch (error) {

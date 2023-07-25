@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, ClickAwayListener, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import useStyles from "../../styles/styles.js";
 import "./DetailsPage.css";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -143,6 +143,7 @@ const DetailsPage = () => {
                   <div className="imageContainer">
                     <img
                       className="image"
+                      alt="architecture"
                       src={require("../../images/architectureimage.jpg")}
                     />
                   </div>
