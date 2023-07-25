@@ -65,10 +65,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logo: {
-    width: "150px",
-    height: "auto",
-    [theme.breakpoints.down("sm")]: {
-      width: "120px",
+    width: '150px',
+    height: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '120px',
     },
   },
   searchContainer: {

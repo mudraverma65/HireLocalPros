@@ -2,6 +2,7 @@ import axios from "axios";
 import api from "./interceptor";
 
 const USER_AUTH_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+// const USER_AUTH_BASE_URL = process.env.LOCAL_BACKEND_URL;
 
 export const CreateUser = (data) =>
   axios.post(`${USER_AUTH_BASE_URL}/signUp`, data);
@@ -17,3 +18,5 @@ export const UpdateUser = (id, data) => api.post(`${USER_AUTH_BASE_URL}/updateUs
 export const DeleteUser = (id) => api.get(`${USER_AUTH_BASE_URL}/deleteUser/${id}`);
 export const PostComment = (data) => axios.post(`${USER_AUTH_BASE_URL}/addReview`, data)
 export const GetPostInformation = (id) => axios.get(`${USER_AUTH_BASE_URL}/userInformation/${id}`);
+
+export const CategoryUser = (category) => api.get(`${USER_AUTH_BASE_URL}/category/${category}`);

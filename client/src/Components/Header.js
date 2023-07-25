@@ -17,8 +17,9 @@ import SearchIcon from "@material-ui/icons/Search";
 const Header = () => {
   const classes = useStyles();
   const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("userId");
@@ -37,7 +38,17 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    naviagte("/login");
+    navigate("/login");
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    if (searchTerm.trim() !== '') {
+      navigate(`/category/${searchTerm}`);
+    }
   };
 
   return (
@@ -52,11 +63,14 @@ const Header = () => {
               placeholder="Search for services near you..."
               className={classes.searchInput}
               inputProps={{ "aria-label": "search" }}
+              value={searchTerm}
+              onChange={handleSearchChange}
             />
             <IconButton
               color="primary"
               className={classes.searchIcon}
               aria-label="search"
+              onClick={handleSearchSubmit}
             >
               <SearchIcon />
             </IconButton>

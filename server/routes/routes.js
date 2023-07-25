@@ -4,6 +4,7 @@ const UserController = require("../controllers/userController");
 const PostController = require("../controllers/postController");
 const AppointmentController = require("../controllers/appointmentController");
 const ReviewController = require("../controllers/reviewController");
+const listingsController = require("../controllers/listingsController");
 const authGuard = require("../middlewares/authguard");
 
 // user routes
@@ -28,7 +29,6 @@ router.get("/deletePost/:id", PostController.deletePost);
 router.get("/postInformation/:id", PostController.getPostInformation);
 router.get("/userInformation/:id", PostController.getAllUserInformation);
 router.get("/getAllPostsofUser/:id", PostController.getAllPostsByUser);
-
 router.post("/scheduleAppointment", AppointmentController.scheduleAppointment);
 router.get("/cancelAppointment/:id", AppointmentController.cancelAppointment);
 router.get(
@@ -39,6 +39,9 @@ router.get(
   "/getServiceProviderAppointemnts/:id",
   AppointmentController.getAppointmentByServiceProviderId
 );
+
+//Listings routes
+router.get('/category/:category', listingsController.getUsersByCategory);
 
 router.post("/addReview", ReviewController.addReview);
 
