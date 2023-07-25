@@ -60,6 +60,40 @@ const userSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
+  rating: {
+    type: Number,
+    default: 0,
+    required: false,
+  },
+  address: {
+    type: String,
+    required: false,
+  },
+  city: {
+    type: String,
+    required: false,
+  },
+  languagepref: {
+    type: String,
+    required: false,
+  },
+  notificationpref: {
+    type: [String],
+    enum: ["SMS", "Email"],
+    required: false,
+  },
+  province: {
+    type: String,
+    required: false,
+  },
+  zip: {
+    type: String,
+    required: false,
+  },
+  bio: {
+    type: String,
+    required: false,
+  },
 });
 
 const User = mongoose.model("user", userSchema);
