@@ -23,6 +23,8 @@ p {
     width: 100%;
     height: 100%;
     border-radius: 20px;
+    background-size: contain;
+    background-position: center center;
 }
 
 .profileDetailsContainer {
@@ -51,6 +53,7 @@ p {
     font-weight: 500;
     font-size: 15px;
 }
+
 .rightContentContainer {
     display: flex;
     flex-direction: column;
@@ -158,11 +161,13 @@ p {
     align-items: center;
     flex-direction: column;
 }
+
 .modalTitle {
     font-size: 25px;
     color: #27374D;
     font-weight: bold;
 }
+
 .commentForm {
     width: 100%;
 }
@@ -173,7 +178,11 @@ p {
         height: 200px;
         border-radius: 20px;
         margin-top: 20px;
+        background-position: center center;
+        /* as mentioned by Vad: */
+        background-size: cover;
     }
+
     .rightContentContainer {
         margin-left: 0px;
     }
