@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
 import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
 import DetailsPage from "./Components/DetailsPage/DetailsPage";
+import Services from "./Components/Listings/Services"
+import CategoryUserList from "./Components/Listings/CategoryUserList";
 
 const theme = createTheme({});
 
