@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { Typography, TextField, Button, Card, CardContent, Grid, Select, MenuItem } from '@mui/material';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   bookingForm: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formHeading: {
     marginBottom: theme.spacing(4),
-    color: '#333',
+    color: '#007bff', // Blue color for heading
     textAlign: 'center',
     fontFamily: 'Poppins, sans-serif', // New font family
     fontWeight: 'bold',
@@ -80,6 +81,13 @@ const useStyles = makeStyles((theme) => ({
   dateAndTime: {
     marginTop: theme.spacing(2),
   },
+  mobileFormContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%', // Full-width for mobile
+    padding: theme.spacing(2), // Add some padding for better spacing on mobile
+  },
 }));
 
 const BookingRequest = () => {
@@ -87,26 +95,59 @@ const BookingRequest = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [timeError, setTimeError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const availableTimes = Array.from({ length: 10 }, (_, index) => {
     const hour = 8 + index;
     return `${hour.toString().padStart(2, '0')}:00`;
   });
 
-  const handleSubmit = (e) => {
+  const formatDate = (date) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if the time is valid (HH:mm format)
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):00$/;
     if (!timeRegex.test(selectedTime)) {
       setTimeError(true);
-      return;
     } else {
       setTimeError(false);
     }
 
-    // Add your logic here to handle form submission
-    console.log('Booking request submitted');
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(e.target.email.value)) {
+      setEmailError(true);
+      return;
+    } else {
+      setEmailError(false);
+    }
+
+    // Prepare data for API call
+    const userData = {
+      userId: 'USER_ID', // Replace with actual user ID (hardcoded for now)
+      serviceProviderUserId: 'SERVICE_PROVIDER_USER_ID', // Replace with actual service provider user ID (hardcoded for now)
+      appointmentTime: selectedTime,
+      appointmentDate: formatDate(selectedDate),
+      contactEmail: e.target.email.value,
+      // Add other appointment details as needed (e.g., service description, service type, etc.)
+    };
+
+    // Call the API to schedule an appointment
+    try {
+      console.log(userData);
+      const baseURL = 'https://localhost:8000'; // Or any other URL where your backend API is hosted
+      const response = await axios.post(`${baseURL}/scheduleAppointment`, userData);
+      console.log('Appointment scheduled successfully:', response.data);
+      // Add any logic for success handling (e.g., show success message, redirect to confirmation page, etc.)
+    } catch (error) {
+      console.error('Error scheduling appointment:', error.response.data);
+      // Add any logic for error handling (e.g., show error message, etc.)
+    }
   };
 
   return (
@@ -119,25 +160,23 @@ const BookingRequest = () => {
           Choose a date and time for your appointment
         </Typography>
         <form onSubmit={handleSubmit}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            className={classes.formField}
-            required
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            className={classes.formField}
-            required
-          />
-          <TextField
-            label="Service Description"
-            variant="outlined"
-            className={classes.formField}
-            required
-          />
-          {/* Add more fields as needed */}
+          <div className={classes.mobileFormContainer}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              className={classes.formField}
+              required
+            />
+            <TextField
+              label="Email"
+              variant="outlined"
+              className={classes.formField}
+              required
+              name="email" // Add a name attribute to retrieve the email in the handleSubmit function
+              error={emailError}
+              helperText={emailError ? 'Invalid email format' : ''}
+            />
+          </div>
           <Grid container spacing={2} className={classes.dateAndTime}>
             <Grid item xs={12} sm={6}>
               <DatePicker
@@ -153,7 +192,7 @@ const BookingRequest = () => {
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
                 displayEmpty
-                className={classes.timeSelect} 
+                className={classes.timeSelect}
                 error={timeError}
               >
                 <MenuItem value="" disabled>

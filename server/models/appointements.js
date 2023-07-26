@@ -25,6 +25,9 @@ const appointmentSchema = new mongoose.Schema({
   },
   contactEmail: {
     type: String,
+  },
+  serviceDescription: {
+    type: String,
   }
 });
 
