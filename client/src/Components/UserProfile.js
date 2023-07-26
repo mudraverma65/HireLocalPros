@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Grid,
@@ -10,6 +11,7 @@ import {
   FormControlLabel,
   Switch,
   MenuItem,
+  Checkbox,
   Modal,
   Box,
   IconButton,
@@ -17,8 +19,8 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-
 const UserProfile = () => {
+  const classes = makeStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState(null);
   const [editedUserData, setEditedUserData] = useState({});
@@ -33,6 +35,16 @@ const UserProfile = () => {
   const [errors, setErrors] = useState({});
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [profileImage, setProfileImage] = useState('');
+
+   // New state variables for email notifications
+   const [isEmailNotificationEnabled, setIsEmailNotificationEnabled] = useState(false);
+
+   // Existing code for fetching user data and handling user data changes...
+ 
+   // New event handler for email notification changes
+   const handleEmailNotificationChange = (event) => {
+     setIsEmailNotificationEnabled(event.target.checked);
+   };
 
   useEffect(() => {
     // Fetch user data including profileImage when the component mounts
@@ -108,7 +120,6 @@ const UserProfile = () => {
 
     try {
       editedUserData.profileImage = profileImage;
-      console.log(editedUserData)
       // Send the updated user data to the API
       await axios.post(`http://localhost:8000/updateUser/${userData?._id}`, editedUserData);
       handleProfileUpdateSuccess();
@@ -194,48 +205,63 @@ const UserProfile = () => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      console.log(reader.result)
       setProfileImage(reader.result);
     };
     reader.readAsDataURL(file);
   };
 
   return (
-    <Container maxWidth="md" sx={{ marginTop: 10 }}>
-      <Paper elevation={3} sx={{ padding: 3, backgroundColor: '#f0f0f0' }}>
-        <Typography variant="h4" sx={{ marginBottom: 3, color: '#333' }}>
-          User Profile
+    <Container maxWidth="md" sx={{ paddingTop: 10, backgroundColor: '#f8f8f8' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          paddingBottom: 3,
+        }}
+      >
+        {/* Profile Picture */}
+        <img
+          src={profileImage || '../images/avatar.png'} // Replace with the default avatar path
+          alt="Profile"
+          width="150"
+          height="150"
+          style={{ borderRadius: '50%' }}
+        />
+        {isEditing && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+          </Box>
+        )}
+        {/* Bio */}
+        <Typography variant="body1" sx={{ fontStyle: 'italic', mt: 2 }}>
+          {isEditing ? (
+            <TextField
+              multiline
+              rows={4}
+              value={editedUserData.bio || ''}
+              onChange={(e) => handleUserDataChange('bio', e.target.value)}
+              fullWidth
+              placeholder="Tell something about yourself..."
+              variant="outlined"
+              InputProps={{ sx: { fontSize: '1rem' } }}
+            />
+          ) : (
+            <Typography variant="body1" sx={{ fontSize: '1rem' }}>
+              {userData?.bio || 'Tell something about yourself...'}
+            </Typography>
+          )}
         </Typography>
-        <Grid container spacing={2}>
+      </Box>
+
+      {/* User Fields */}
+      <Paper elevation={3} sx={{ p: 4, mb: 3 }}>
+        <Typography variant="h4" sx={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
+          {userData?.name || 'Your Name'}
+        </Typography>
+        <Grid container spacing={2} sx={{ mt: 3 }}>
           {/* Left Side */}
           <Grid item xs={12} sm={6}>
-            {/* Profile Image */}
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
-              <img
-                src={profileImage || '../images/avatar.png'} // Replace with the default avatar path
-                alt="Profile"
-                width="150"
-                height="150"
-                style={{ borderRadius: '50%' }}
-              />
-            </Box>
-            {isEditing && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-              </Box>
-            )}
-  
-            <TextField
-              label="Name"
-              fullWidth
-              value={isEditing ? editedUserData.name || '' : userData?.name || ''}
-              onChange={(e) => handleUserDataChange('name', e.target.value)}
-              disabled={!isEditing}
-              error={!!errors.name}
-              helperText={errors.name}
-              margin="normal"
-              variant="outlined"
-            />
             <TextField
               label="Email"
               fullWidth
@@ -246,6 +272,7 @@ const UserProfile = () => {
               helperText={errors.email}
               margin="normal"
               variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
             />
             <TextField
               label="Contact"
@@ -257,6 +284,7 @@ const UserProfile = () => {
               helperText={errors.contact}
               margin="normal"
               variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
             />
             <TextField
               label="Address"
@@ -268,75 +296,76 @@ const UserProfile = () => {
               helperText={errors.address}
               margin="normal"
               variant="outlined"
-            />
-            {/* ... (rest of your fields) ... */}
-            <Typography variant="subtitle1">Notification Preferences</Typography>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={smsNotification}
-                  onChange={(e) => setSmsNotification(e.target.checked)}
-                  disabled={!isEditing}
-                />
-              }
-              label="SMS Notification"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={emailNotification}
-                  onChange={(e) => setEmailNotification(e.target.checked)}
-                  disabled={!isEditing}
-                />
-              }
-              label="Email Notification"
-            />
-            <TextField
-              label="Bio"
-              fullWidth
-              multiline
-              rows={4}
-              value={isEditing ? editedUserData.bio || '' : userData?.bio || ''}
-              onChange={(e) => handleUserDataChange('bio', e.target.value)}
-              disabled={!isEditing}
-              error={!!errors.bio}
-              helperText={errors.bio}
-              margin="normal"
-              variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
             />
           </Grid>
-  
+
           {/* Right Side */}
           <Grid item xs={12} sm={6}>
             <TextField
-              label="Language Preference"
+              label="City"
               fullWidth
-              select
-              value={isEditing ? editedUserData.languagepref || '' : userData?.languagepref || ''}
-              onChange={(e) => handleUserDataChange('languagepref', e.target.value)}
+              value={isEditing ? editedUserData.city || '' : userData?.city || ''}
+              onChange={(e) => handleUserDataChange('city', e.target.value)}
               disabled={!isEditing}
+              error={!!errors.city}
+              helperText={errors.city}
               margin="normal"
               variant="outlined"
-            >
-              <MenuItem value="english">English</MenuItem>
-              <MenuItem value="french">French</MenuItem>
-              <MenuItem value="spanish">Spanish</MenuItem>
-            </TextField>
+              sx={{ backgroundColor: '#fff' }}
+            />
+            <TextField
+              label="State / Province"
+              fullWidth
+              value={isEditing ? editedUserData.province || '' : userData?.province || ''}
+              onChange={(e) => handleUserDataChange('province', e.target.value)}
+              disabled={!isEditing}
+              error={!!errors.province}
+              helperText={errors.province}
+              margin="normal"
+              variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
+            />
+            <TextField
+              label="ZIP / Postal Code"
+              fullWidth
+              value={isEditing ? editedUserData.zip || '' : userData?.zip || ''}
+              onChange={(e) => handleUserDataChange('zip', e.target.value)}
+              disabled={!isEditing}
+              error={!!errors.zip}
+              helperText={errors.zip}
+              margin="normal"
+              variant="outlined"
+              sx={{ backgroundColor: '#fff' }}
+            />
+            {/* Additional fields */}
             {/* ... (your other fields) ... */}
           </Grid>
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 3 }}>
           {isEditing ? (
             <>
-              <Button variant="outlined" onClick={handleCancelEdit}>
+              <Button
+                variant="outlined"
+                onClick={handleCancelEdit}
+                sx={{ backgroundColor: '#e57373', color: '#fff' }}
+              >
                 Cancel
               </Button>
-              <Button variant="contained" onClick={handleSaveChanges}>
+              <Button
+                variant="contained"
+                onClick={handleSaveChanges}
+                sx={{ backgroundColor: '#81c784', color: '#fff' }}
+              >
                 Save Changes
               </Button>
             </>
           ) : (
-            <Button variant="contained" onClick={handleEditProfile}>
+            <Button
+              variant="contained"
+              onClick={handleEditProfile}
+              sx={{ backgroundColor: '#64b5f6', color: '#fff' }}
+            >
               Edit Profile
             </Button>
           )}
@@ -345,12 +374,17 @@ const UserProfile = () => {
               {successMessage}
             </Typography>
           )}
-          <Button variant="contained" onClick={handleChangePasswordModalOpen}>
+          
+          <Button
+            variant="contained"
+            onClick={handleChangePasswordModalOpen}
+            sx={{ backgroundColor: '#ffa726', color: '#fff' }}
+          >
             Change Password
           </Button>
         </Box>
       </Paper>
-  
+
       {/* Modal for changing password */}
       <Modal open={showChangePasswordModal} onClose={handleChangePasswordModalClose}>
         <Box sx={{ width: 400, bgcolor: 'background.paper', borderRadius: 4, p: 4 }}>
@@ -365,7 +399,7 @@ const UserProfile = () => {
             error={!!errors.oldPassword}
             helperText={errors.oldPassword}
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ marginBottom: 2, backgroundColor: '#fff' }}
             variant="outlined"
           />
           <TextField
@@ -376,7 +410,7 @@ const UserProfile = () => {
             error={!!errors.newPassword}
             helperText={errors.newPassword}
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ marginBottom: 2, backgroundColor: '#fff' }}
             variant="outlined"
             InputProps={{
               endAdornment: (
@@ -396,14 +430,19 @@ const UserProfile = () => {
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword}
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ marginBottom: 2, backgroundColor: '#fff' }}
             variant="outlined"
           />
-          <Button variant="contained" color="primary" onClick={handleChangePassword}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleChangePassword}
+            sx={{ backgroundColor: '#2196f3', color: '#fff' }}
+          >
             Save Password
           </Button>
           {passwordChangeMessage && (
-            <Typography variant="body1" sx={{ mt: 2, color: 'green' }}>
+            <Typography variant="body1" sx={{ mt: 2, color: '#4caf50' }}>
               {passwordChangeMessage}
             </Typography>
           )}
@@ -411,7 +450,6 @@ const UserProfile = () => {
       </Modal>
     </Container>
   );
-  
 };
 
 export default UserProfile;
