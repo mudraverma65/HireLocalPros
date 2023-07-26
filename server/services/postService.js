@@ -50,19 +50,23 @@ exports.getPost = async (postId) => {
 exports.getPostInformation = async (postId) => {
   try {
     const post = await Post.findById(postId);
-    if (!post) {
-      return null;
-    }
     const user = await User.findById(post.userId);
-    if (!user) {
-      return null;
-    }
     const reviews = await Reviews.find({ postId });
-    if (!reviews) {
-      return null;
-    }
     return {
       post,
+      user,
+      reviews,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+exports.getAllUserInformation = async (userId) => {
+  try {
+    const user = await User.findById({ _id: userId });
+    const reviews = await Reviews.find({ userId: user._id });
+    return {
       user,
       reviews,
     };
