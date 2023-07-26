@@ -65,8 +65,8 @@ const AppointmentsScreen = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const { userId } = useParams();
+  const userId = localStorage.getItem("userId");
+  
 
   useEffect(() => {
     console.log('User ID:', userId);

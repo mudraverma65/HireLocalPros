@@ -96,6 +96,7 @@ const BookingRequest = () => {
   const [selectedTime, setSelectedTime] = useState('');
   const [timeError, setTimeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const userId = localStorage.getItem("userId");
 
   const availableTimes = Array.from({ length: 10 }, (_, index) => {
     const hour = 8 + index;
@@ -129,7 +130,8 @@ const BookingRequest = () => {
 
     // Prepare data for API call
     const userData = {
-      userId: 'USER_ID', // Replace with actual user ID (hardcoded for now)
+      
+      userId: userId, 
       serviceProviderUserId: 'SERVICE_PROVIDER_USER_ID', // Replace with actual service provider user ID (hardcoded for now)
       appointmentTime: selectedTime,
       appointmentDate: formatDate(selectedDate),

@@ -94,7 +94,7 @@ const ServiceProviderAppointments = () => {
   const [error, setError] = useState('');
 
   // Use the service provider ID from the URL parameter
-  const { serviceProviderId } = useParams();
+  const { serviceProviderId } = localStorage.getItem("userId");
 
   useEffect(() => {
     console.log('Service Provider ID:', serviceProviderId);

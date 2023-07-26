@@ -67,6 +67,7 @@ const UserProfile = () => {
     // Fetch user data when the component mounts
     const fetchUserData = async () => {
       try {
+        const userId = localStorage.getItem("userId");
         const response = await axios.get('http://localhost:8000/getUser/64b9613db5af6374dbf41aae');
         const userDataFromApi = response.data;
         
