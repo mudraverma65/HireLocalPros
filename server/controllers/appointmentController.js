@@ -93,3 +93,40 @@ exports.updateAppointmentStatus = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+
+exports.updateAppointmentDetails = async (req, res) => {
+  try {
+    console.log("Received API hit for updating appointment details. Appointment ID:", req.params.id);
+
+    // Extract the updated appointment details from the request body
+    const { appointmentTime, appointmentDate, appointmentDetails, contactEmail, serviceDescription } = req.body;
+
+    // Add any necessary validations for the updated appointment details here
+
+    // Create an object with the updated details
+    const updatedAppointmentDetails = {
+      appointmentTime,
+      appointmentDate,
+      appointmentDetails,
+      contactEmail,
+      serviceDescription,
+    };
+
+    // Pass the appointment ID and updated details to the service function
+    const response = await AppointmentService.updateAppointmentDetails(req.params.id, updatedAppointmentDetails);
+
+    if (!response.success) {
+      console.log("Appointment not found with ID:", req.params.id);
+      return res
+        .status(404)
+        .json({ message: "Appointment not found", success: false });
+    }
+
+    console.log("Appointment details updated successfully:", response.message);
+    res.send({ message: response.message, success: true });
+  } catch (error) {
+    console.error("Error updating appointment details:", error);
+    res.status(400).json({ error: error.message });
+  }
+};

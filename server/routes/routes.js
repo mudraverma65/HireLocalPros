@@ -42,6 +42,9 @@ router.get(
 );
 router.post("/updateAppointmentStatus/:id", AppointmentController.updateAppointmentStatus);
 
+router.put("/update/:id", appointmentController.updateAppointmentDetails);
+
+
 
 
 //Listings routes
