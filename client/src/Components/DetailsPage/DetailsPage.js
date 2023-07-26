@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, ClickAwayListener, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import useStyles from "../../styles/styles.js";
 import "./DetailsPage.css";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -14,6 +14,7 @@ import {
   GetPostInformation,
   PostComment,
 } from "../../services/user.service.js";
+import { useLocation, useNavigate } from "react-router-dom";
 const DetailsPage = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +28,14 @@ const DetailsPage = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const userId = location.state.profileData._id;
 
   const getPostInformation = async () => {
     try {
       setUserLoading(true);
-      const response = await GetPostInformation("64ba9525efecb57c5cbb34aa");
+      const response = await GetPostInformation(userId);
       setUserDetails(response.data.user);
       setReviews(response.data.reviews);
       setUserLoading(false);
@@ -42,10 +46,10 @@ const DetailsPage = () => {
 
   useEffect(() => {
     getPostInformation();
-  }, []);
+  }, [userId]);
 
   const handleBack = () => {
-    console.log("Back button clicked");
+    navigate("/services");
   };
 
   const stringToColor = (string) => {
@@ -95,7 +99,7 @@ const DetailsPage = () => {
     try {
       const requestBody = {
         postId: "64ab3f0444602e7cf57f3717",
-        userId: localStorage.getItem("userId"),
+        userId: userId,
         username: localStorage.getItem("userName"),
         rating: parseInt(commentData.rating),
         review: commentData.review,
@@ -114,6 +118,10 @@ const DetailsPage = () => {
       setIsLoading(false);
     }
   };
+
+  const handleBookAppointment = () => {
+    navigate("/booking", { state: { userId } })
+  }
 
   return (
     <>
@@ -143,7 +151,8 @@ const DetailsPage = () => {
                   <div className="imageContainer">
                     <img
                       className="image"
-                      src={require("../../images/architectureimage.jpg")}
+                      alt="architecture"
+                      src={require("../../images/profile.jpg")}
                     />
                   </div>
                   <div className="profileDetailsContainer">
@@ -151,14 +160,18 @@ const DetailsPage = () => {
                     <p className="designation">{userDetails.category}</p>
                     <p className="email">@{userDetails.email}</p>
                     <div className="locationContainer">
-                      <PhoneIcon style={{ color: "#0F5132", fontSize: "16px" }} />
-                      <p style={{marginLeft: "10px"}}>{userDetails.contact}</p>
+                      <PhoneIcon
+                        style={{ color: "#0F5132", fontSize: "16px" }}
+                      />
+                      <p style={{ marginLeft: "10px" }}>
+                        {userDetails.contact}
+                      </p>
                     </div>
                     <div className="locationContainer">
                       <PlaceIcon style={{ color: "#ea4335" }} />
                       <p>{userDetails.location}</p>
                     </div>
-                    <button className={classes.button}>Book Appointment</button>
+                    <button className={classes.button} onClick={handleBookAppointment}>Book Appointment</button>
                   </div>
                 </Grid>
                 <Grid

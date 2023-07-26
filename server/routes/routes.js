@@ -35,10 +35,17 @@ router.get(
   "/getUserAppointments/:id",
   AppointmentController.getAppointmentByUserId
 );
+// Corrected route
 router.get(
-  "/getServiceProviderAppointemnts/:id",
+  "/getServiceProviderAppointments/:id",
   AppointmentController.getAppointmentByServiceProviderId
 );
+router.post("/updateAppointmentStatus/:id", AppointmentController.updateAppointmentStatus);
+
+router.put("/update/:id", AppointmentController.updateAppointmentDetails);
+
+
+
 
 //Listings routes
 router.get('/category/:category', listingsController.getUsersByCategory);

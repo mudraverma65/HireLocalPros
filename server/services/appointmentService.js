@@ -47,3 +47,76 @@ exports.getAppointmentsByServiceProviderId = async (serviceProviderUserId) => {
     return error;
   }
 };
+
+
+exports.getAppointmentById = async (appointmentId) => {
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+    return appointment;
+  } catch (error) {
+    return error;
+  }
+};
+
+exports.updateAppointmentStatus = async (appointmentId, flag) => {
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return {
+        success: false,
+        message: "Appointment not found",
+      };
+    }
+
+    if (flag === "cancel") {
+      appointment.appointmentStatus = "cancelled";
+    } else if (flag === "confirm") {
+      appointment.appointmentStatus = "confirmed";
+    } else {
+      return {
+        success: false,
+        message: "Invalid flag. Please provide 'cancel' or 'approve'",
+      };
+    }
+
+    await appointment.save();
+
+    return {
+      success: true,
+      message: `Appointment status updated to '${appointment.appointmentStatus}'`,
+    };
+  } catch (error) {
+    return error;
+  }
+};
+
+
+exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return {
+        success: false,
+        message: "Appointment not found",
+      };
+    }
+
+    // Update the appointment with the new details
+    appointment.appointmentTime = updatedDetails.appointmentTime;
+    appointment.appointmentDate = updatedDetails.appointmentDate;
+    appointment.appointmentDetails = updatedDetails.appointmentDetails;
+    appointment.contactEmail = updatedDetails.contactEmail;
+    appointment.serviceDescription = updatedDetails.serviceDescription;
+
+    await appointment.save();
+
+    return {
+      success: true,
+      message: "Appointment details updated successfully",
+    };
+  } catch (error) {
+    return error;
+  }
+};
