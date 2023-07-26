@@ -119,6 +119,10 @@ const DetailsPage = () => {
     }
   };
 
+  const handleBookAppointment = () => {
+    navigate("/booking")
+  }
+
   return (
     <>
       {userLoading ? (
@@ -167,7 +171,7 @@ const DetailsPage = () => {
                       <PlaceIcon style={{ color: "#ea4335" }} />
                       <p>{userDetails.location}</p>
                     </div>
-                    <button className={classes.button}>Book Appointment</button>
+                    <button className={classes.button} onClick={handleBookAppointment}>Book Appointment</button>
                   </div>
                 </Grid>
                 <Grid
