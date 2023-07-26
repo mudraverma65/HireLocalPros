@@ -140,6 +140,7 @@ const UserProfile = () => {
       // Send the updated user data to the API
       await UpdateUser(userData?._id, editedUserData);
       handleProfileUpdateSuccess();
+
     } catch (error) {
       console.error("Error updating user data:", error);
       setSuccessMessage("Failed to update profile.");
@@ -149,6 +150,9 @@ const UserProfile = () => {
   const handleProfileUpdateSuccess = () => {
     setSuccessMessage("Profile updated successfully!");
     setIsEditing(false);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const handleCancelEdit = () => {
@@ -425,7 +429,7 @@ const UserProfile = () => {
               </Button>
               <Button
                 variant="contained"
-                onClick={handleSaveChanges}
+                onClick={handleSaveChanges }
                 sx={{ backgroundColor: "#81c784", color: "#fff" }}
               >
                 Save Changes
