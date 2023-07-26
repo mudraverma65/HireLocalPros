@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formHeading: {
     marginBottom: theme.spacing(4),
-    color: '#333',
+    color: '#007bff', // Blue color for heading
     textAlign: 'center',
     fontFamily: 'Poppins, sans-serif', // New font family
     fontWeight: 'bold',
@@ -153,7 +153,7 @@ const BookingRequest = () => {
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
                 displayEmpty
-                className={classes.timeSelect} 
+                className={classes.timeSelect}
                 error={timeError}
               >
                 <MenuItem value="" disabled>
