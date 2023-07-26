@@ -32,9 +32,10 @@ const UserProfile = () => {
   const [passwordChangeMessage, setPasswordChangeMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [profileImage, setProfileImage] = useState('');
 
   useEffect(() => {
-    // Fetch user data when the component mounts
+    // Fetch user data including profileImage when the component mounts
     const fetchUserData = async () => {
       try {
         const response = await axios.get('http://localhost:8000/getUser/64b9613db5af6374dbf41aae');
@@ -44,6 +45,11 @@ const UserProfile = () => {
         setEditedUserData(userDataFromApi);
         setSmsNotification(userDataFromApi.notificationpref.includes('SMS'));
         setEmailNotification(userDataFromApi.notificationpref.includes('Email'));
+
+        // Set the profileImage state if available in the API response
+        if (userDataFromApi.profileImage) {
+          setProfileImage(userDataFromApi.profileImage);
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -101,8 +107,9 @@ const UserProfile = () => {
     }
 
     try {
+      editedUserData.profileImage = profileImage;
+      console.log(editedUserData)
       // Send the updated user data to the API
-      console.log(editedUserData);
       await axios.post(`http://localhost:8000/updateUser/${userData?._id}`, editedUserData);
       handleProfileUpdateSuccess();
     } catch (error) {
@@ -111,18 +118,17 @@ const UserProfile = () => {
     }
   };
 
-  // Function to handle successful profile update
   const handleProfileUpdateSuccess = () => {
     setSuccessMessage('Profile updated successfully!');
-    setIsEditing(false); // Set isEditing to false to go back to displaying user profile
+    setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
     setIsEditing(false);
-    setEditedUserData(userData); // Reset the editedUserData to the original user data
+    setEditedUserData(userData);
     setSmsNotification(userData?.notificationpref.includes('SMS') || false);
     setEmailNotification(userData?.notificationpref.includes('Email') || false);
-    setErrors({}); // Clear any previous errors
+    setErrors({});
   };
 
   const handleChangePasswordModalOpen = () => {
@@ -131,11 +137,10 @@ const UserProfile = () => {
 
   const handleChangePasswordModalClose = () => {
     setShowChangePasswordModal(false);
-    setOldPassword(''); // Clear old password input
+    setOldPassword('');
     setNewPassword('');
     setConfirmPassword('');
     setPasswordChangeMessage('');
-    setErrors({}); // Clear any previous errors
   };
 
   const handleChangePassword = async () => {
@@ -143,24 +148,24 @@ const UserProfile = () => {
       setPasswordChangeMessage('Please enter a new password.');
       return;
     }
-  
+
     if (newPassword !== confirmPassword) {
       setPasswordChangeMessage('New password and confirmation do not match.');
       return;
     }
-  
+
     // Perform the old password check here
     if (!oldPassword || oldPassword.trim() === '') {
       setPasswordChangeMessage('Please enter your old password.');
       return;
     }
-  
+
     // Assuming you have a property "password" in the userData object which holds the existing password
     if (oldPassword !== userData?.password) {
       setPasswordChangeMessage('Old password is incorrect.');
       return;
     }
-  
+
     try {
       // Send the updated password to the API
       await axios.post(`http://localhost:8000/updateUser/${userData?._id}`, {
@@ -181,6 +186,20 @@ const UserProfile = () => {
     setIsPasswordVisible((prevIsVisible) => !prevIsVisible);
   };
 
+  // Function to handle file selection and convert it to base64
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      console.log(reader.result)
+      setProfileImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Container maxWidth="md" sx={{ marginTop: 10 }}>
       <Paper elevation={3} sx={{ padding: 3, backgroundColor: '#f0f0f0' }}>
@@ -190,6 +209,22 @@ const UserProfile = () => {
         <Grid container spacing={2}>
           {/* Left Side */}
           <Grid item xs={12} sm={6}>
+            {/* Profile Image */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
+              <img
+                src={profileImage || '../images/avatar.png'} // Replace with the default avatar path
+                alt="Profile"
+                width="150"
+                height="150"
+                style={{ borderRadius: '50%' }}
+              />
+            </Box>
+            {isEditing && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <input type="file" accept="image/*" onChange={handleFileChange} />
+              </Box>
+            )}
+  
             <TextField
               label="Name"
               fullWidth
@@ -234,25 +269,7 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
             />
-            {/* ... Additional fields for user profile details (unchanged) ... */}
-          </Grid>
-
-          {/* Right Side */}
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Language Preference"
-              fullWidth
-              select
-              value={isEditing ? editedUserData.languagepref || '' : userData?.languagepref || ''}
-              onChange={(e) => handleUserDataChange('languagepref', e.target.value)}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            >
-              <MenuItem value="english">English</MenuItem>
-              <MenuItem value="french">French</MenuItem>
-              <MenuItem value="spanish">Spanish</MenuItem>
-            </TextField>
+            {/* ... (rest of your fields) ... */}
             <Typography variant="subtitle1">Notification Preferences</Typography>
             <FormControlLabel
               control={
@@ -288,19 +305,38 @@ const UserProfile = () => {
               variant="outlined"
             />
           </Grid>
+  
+          {/* Right Side */}
+          <Grid item xs={12} sm={6}>
+            <TextField
+              label="Language Preference"
+              fullWidth
+              select
+              value={isEditing ? editedUserData.languagepref || '' : userData?.languagepref || ''}
+              onChange={(e) => handleUserDataChange('languagepref', e.target.value)}
+              disabled={!isEditing}
+              margin="normal"
+              variant="outlined"
+            >
+              <MenuItem value="english">English</MenuItem>
+              <MenuItem value="french">French</MenuItem>
+              <MenuItem value="spanish">Spanish</MenuItem>
+            </TextField>
+            {/* ... (your other fields) ... */}
+          </Grid>
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 3 }}>
           {isEditing ? (
-            <Box>
-              <Button variant="contained" onClick={handleCancelEdit} sx={{ mr: 2, color: 'white', bgcolor: '#ff7043' }}>
+            <>
+              <Button variant="outlined" onClick={handleCancelEdit}>
                 Cancel
               </Button>
-              <Button variant="contained" onClick={handleSaveChanges} sx={{ color: 'white', bgcolor: '#4caf50' }}>
+              <Button variant="contained" onClick={handleSaveChanges}>
                 Save Changes
               </Button>
-            </Box>
+            </>
           ) : (
-            <Button variant="contained" onClick={handleEditProfile} sx={{ color: 'white', bgcolor: '#2196f3' }}>
+            <Button variant="contained" onClick={handleEditProfile}>
               Edit Profile
             </Button>
           )}
@@ -309,12 +345,12 @@ const UserProfile = () => {
               {successMessage}
             </Typography>
           )}
-          <Button variant="contained" onClick={handleChangePasswordModalOpen} sx={{ color: 'white', bgcolor: '#9c27b0' }}>
+          <Button variant="contained" onClick={handleChangePasswordModalOpen}>
             Change Password
           </Button>
         </Box>
       </Paper>
-
+  
       {/* Modal for changing password */}
       <Modal open={showChangePasswordModal} onClose={handleChangePasswordModalClose}>
         <Box sx={{ width: 400, bgcolor: 'background.paper', borderRadius: 4, p: 4 }}>
@@ -375,6 +411,7 @@ const UserProfile = () => {
       </Modal>
     </Container>
   );
+  
 };
 
 export default UserProfile;
