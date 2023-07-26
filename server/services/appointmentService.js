@@ -48,6 +48,16 @@ exports.getAppointmentsByServiceProviderId = async (serviceProviderUserId) => {
   }
 };
 
+
+exports.getAppointmentById = async (appointmentId) => {
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+    return appointment;
+  } catch (error) {
+    return error;
+  }
+};
+
 exports.updateAppointmentStatus = async (appointmentId, flag) => {
   try {
     const appointment = await Appointment.findById(appointmentId);
@@ -61,7 +71,7 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
 
     if (flag === "cancel") {
       appointment.appointmentStatus = "cancelled";
-    } else if (flag === "approve") {
+    } else if (flag === "confirm") {
       appointment.appointmentStatus = "confirmed";
     } else {
       return {
