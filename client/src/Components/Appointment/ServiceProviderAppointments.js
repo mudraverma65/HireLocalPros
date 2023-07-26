@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Typography, Card, CardContent, List, ListItem, ListItemText, Grid, Button } from '@mui/material';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appointmentCard: {
@@ -94,7 +93,7 @@ const ServiceProviderAppointments = () => {
   const [error, setError] = useState('');
 
   // Use the service provider ID from the URL parameter
-  const { serviceProviderId } = useParams();
+  const serviceProviderId  = localStorage.getItem("userId");
 
   useEffect(() => {
     console.log('Service Provider ID:', serviceProviderId);
@@ -107,7 +106,7 @@ const ServiceProviderAppointments = () => {
       setError('');
 
       // Use the correct base URL for your backend API
-      const baseURL = 'http://localhost:8000';
+      const baseURL = process.env.REACT_APP_BACKEND_URL;
       const response = await axios.get(`${baseURL}/getServiceProviderAppointments/${serviceProviderId}`);
       setAppointments(response.data);
       setLoading(false);
@@ -120,7 +119,7 @@ const ServiceProviderAppointments = () => {
 
   const handleConfirmAppointment = async (appointmentId) => {
     try {
-      const baseURL = 'http://localhost:8000';
+      const baseURL = process.env.REACT_APP_BACKEND_URL;
       await axios.post(`${baseURL}/updateAppointmentStatus/${appointmentId}`, { status: 'confirm' }); // Change 'confirm' to 'approve'
       fetchAppointments(); // Refresh the appointments after updating status
     } catch (error) {
@@ -131,7 +130,7 @@ const ServiceProviderAppointments = () => {
 
   const handleCancelAppointment = async (appointmentId) => {
     try {
-      const baseURL = 'http://localhost:8000';
+      const baseURL = process.env.REACT_APP_BACKEND_URL;
       await axios.post(`${baseURL}/updateAppointmentStatus/${appointmentId}`, { status: 'cancel' });
       fetchAppointments(); // Refresh the appointments after updating status
     } catch (error) {
@@ -154,7 +153,7 @@ const ServiceProviderAppointments = () => {
           <Typography variant="body1">You have no appointments scheduled.</Typography>
         ) : (
           <List className={classes.appointmentList}>
-            {appointments.map((appointment) => (
+            {appointments?.map((appointment) => (
               <ListItem key={appointment._id} className={`${classes.appointmentItem} ${classes.mobileAppointmentItem}`}>
                 <ListItemText
                   primary={`Date: ${appointment.appointmentDate}, Time: ${appointment.appointmentTime}`}
@@ -171,7 +170,7 @@ const ServiceProviderAppointments = () => {
                 {/* Show appointment details */}
                 <ListItemText
                   primary={`Appointment ID: ${appointment._id}`}
-                  secondary={`Client Name: ${appointment.clientName}, Service: ${appointment.service}`}
+                  secondary={`Client Email: ${appointment.contactEmail}`}
                 />
                 {appointment.appointmentStatus === 'scheduled' && (
                   <div className={classes.buttonContainer}>

@@ -1,91 +1,101 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@mui/styles';
-import { Typography, TextField, Button, Card, CardContent, Grid, Select, MenuItem } from '@mui/material';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
+import React, { useState } from "react";
+import { makeStyles } from "@mui/styles";
+import {
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   bookingForm: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     padding: theme.spacing(4),
     margin: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       marginTop: theme.spacing(12),
     },
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    borderRadius: '8px',
-    backgroundColor: '#f9f9f9', // Light gray background color
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    borderRadius: "8px",
+    backgroundColor: "#f9f9f9", // Light gray background color
   },
   formHeading: {
     marginBottom: theme.spacing(4),
-    color: '#007bff', // Blue color for heading
-    textAlign: 'center',
-    fontFamily: 'Poppins, sans-serif', // New font family
-    fontWeight: 'bold',
-    fontSize: '3rem',
-    textTransform: 'uppercase',
-    letterSpacing: '2px', // Increase letter spacing for a stylish look
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
+    color: "#007bff", // Blue color for heading
+    textAlign: "center",
+    fontFamily: "Poppins, sans-serif", // New font family
+    fontWeight: "bold",
+    fontSize: "3rem",
+    textTransform: "uppercase",
+    letterSpacing: "2px", // Increase letter spacing for a stylish look
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5rem",
     },
   },
   formSubHeading: {
     marginBottom: theme.spacing(2),
-    color: '#555',
-    textAlign: 'center',
-    fontFamily: 'Poppins, sans-serif', // Same font family for subheading
-    fontWeight: 'bold',
-    fontSize: '1.2rem',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1rem',
+    color: "#555",
+    textAlign: "center",
+    fontFamily: "Poppins, sans-serif", // Same font family for subheading
+    fontWeight: "bold",
+    fontSize: "1.2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
     },
   },
   formField: {
     marginBottom: theme.spacing(3),
-    width: '100%',
-    backgroundColor: '#fff', // White background for text fields
-    borderRadius: '4px',
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: '#ccc',
+    width: "100%",
+    backgroundColor: "#fff", // White background for text fields
+    borderRadius: "4px",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#ccc",
       },
-      '&:hover fieldset': {
-        borderColor: '#999',
+      "&:hover fieldset": {
+        borderColor: "#999",
       },
     },
   },
   timeSelect: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: '4px',
-    '& .MuiSelect-select': {
-      '&:focus': {
-        backgroundColor: 'transparent',
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: "4px",
+    "& .MuiSelect-select": {
+      "&:focus": {
+        backgroundColor: "transparent",
       },
     },
   },
   submitButton: {
-    width: '100%',
+    width: "100%",
     marginTop: theme.spacing(2),
-    backgroundColor: '#007bff', // Blue background for the submit button
-    color: '#fff',
-    borderRadius: '4px',
-    transition: 'background-color 0.3s ease',
-    '&:hover': {
-      backgroundColor: '#0056b3', // Darker blue background on hover
+    backgroundColor: "#007bff", // Blue background for the submit button
+    color: "#fff",
+    borderRadius: "4px",
+    transition: "background-color 0.3s ease",
+    "&:hover": {
+      backgroundColor: "#0056b3", // Darker blue background on hover
     },
   },
   dateAndTime: {
     marginTop: theme.spacing(2),
   },
   mobileFormContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%', // Full-width for mobile
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%", // Full-width for mobile
     padding: theme.spacing(2), // Add some padding for better spacing on mobile
   },
 }));
@@ -93,17 +103,22 @@ const useStyles = makeStyles((theme) => ({
 const BookingRequest = () => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState('');
+  const [selectedTime, setSelectedTime] = useState("");
   const [timeError, setTimeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const location = useLocation();
+  const serviceProviderId = location.state.userId;
+  const userId = localStorage.getItem("userId");
+
+  console.log("----------------, Service provider ID", serviceProviderId);
 
   const availableTimes = Array.from({ length: 10 }, (_, index) => {
     const hour = 8 + index;
-    return `${hour.toString().padStart(2, '0')}:00`;
+    return `${hour.toString().padStart(2, "0")}:00`;
   });
 
   const formatDate = (date) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(date).toLocaleDateString(undefined, options);
   };
 
@@ -129,8 +144,8 @@ const BookingRequest = () => {
 
     // Prepare data for API call
     const userData = {
-      userId: 'USER_ID', // Replace with actual user ID (hardcoded for now)
-      serviceProviderUserId: 'SERVICE_PROVIDER_USER_ID', // Replace with actual service provider user ID (hardcoded for now)
+      userId: userId,
+      serviceProviderUserId: serviceProviderId, // Replace with actual service provider user ID (hardcoded for now)
       appointmentTime: selectedTime,
       appointmentDate: formatDate(selectedDate),
       contactEmail: e.target.email.value,
@@ -140,12 +155,15 @@ const BookingRequest = () => {
     // Call the API to schedule an appointment
     try {
       console.log(userData);
-      const baseURL = 'https://localhost:8000'; // Or any other URL where your backend API is hosted
-      const response = await axios.post(`${baseURL}/scheduleAppointment`, userData);
-      console.log('Appointment scheduled successfully:', response.data);
+      const baseURL = process.env.REACT_APP_BACKEND_URL; // Or any other URL where your backend API is hosted
+      const response = await axios.post(
+        `${baseURL}/scheduleAppointment`,
+        userData
+      );
+      console.log("Appointment scheduled successfully:", response.data);
       // Add any logic for success handling (e.g., show success message, redirect to confirmation page, etc.)
     } catch (error) {
-      console.error('Error scheduling appointment:', error.response.data);
+      console.error("Error scheduling appointment:", error.response.data);
       // Add any logic for error handling (e.g., show error message, etc.)
     }
   };
@@ -154,7 +172,10 @@ const BookingRequest = () => {
     <Card className={classes.bookingForm}>
       <CardContent>
         <Typography variant="h2" className={classes.formHeading}>
-          <span role="img" aria-label="Calendar Icon">🗓️</span> Schedule an Appointment
+          <span role="img" aria-label="Calendar Icon">
+            🗓️
+          </span>{" "}
+          Schedule an Appointment
         </Typography>
         <Typography variant="h4" className={classes.formSubHeading}>
           Choose a date and time for your appointment
@@ -174,7 +195,7 @@ const BookingRequest = () => {
               required
               name="email" // Add a name attribute to retrieve the email in the handleSubmit function
               error={emailError}
-              helperText={emailError ? 'Invalid email format' : ''}
+              helperText={emailError ? "Invalid email format" : ""}
             />
           </div>
           <Grid container spacing={2} className={classes.dateAndTime}>
@@ -204,7 +225,11 @@ const BookingRequest = () => {
                   </MenuItem>
                 ))}
               </Select>
-              {timeError && <Typography variant="caption" color="error">Invalid time format (HH:00)</Typography>}
+              {timeError && (
+                <Typography variant="caption" color="error">
+                  Invalid time format (HH:00)
+                </Typography>
+              )}
             </Grid>
           </Grid>
           <Button
