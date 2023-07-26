@@ -78,6 +78,13 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#b71c1c', // Darker red background on hover
     },
   },
+  mobileAppointmentItem: {
+    paddingBottom: theme.spacing(2),
+    borderBottom: '1px solid #ccc',
+    '&:last-child': {
+      borderBottom: 'none',
+    },
+  },
 }));
 
 const ServiceProviderAppointments = () => {
@@ -148,46 +155,42 @@ const ServiceProviderAppointments = () => {
         ) : (
           <List className={classes.appointmentList}>
             {appointments.map((appointment) => (
-              <ListItem key={appointment._id} className={classes.appointmentItem}>
-                <Grid container spacing={2} alignItems="center" justifyContent="space-between">
-                  <Grid item xs={12} md={6}>
-                    <ListItemText
-                      primary={`Date: ${appointment.appointmentDate}, Time: ${appointment.appointmentTime}`}
-                      secondary={
-                        <span className={
-                          appointment.appointmentStatus === 'confirmed'
-                            ? classes.appointmentStatusConfirmed
-                            : classes.appointmentStatusCancelled
-                        }>
-                          Status: {appointment.appointmentStatus}
-                        </span>
-                      }
-                    />
-                    {/* Show appointment details */}
-                    <ListItemText
-                      primary={`Appointment ID: ${appointment._id}`}
-                      secondary={`Client Name: ${appointment.clientName}, Service: ${appointment.service}`}
-                    />
-                  </Grid>
-                  {appointment.appointmentStatus === 'scheduled' && (
-                    <Grid item xs={12} md={6} className={classes.buttonContainer}>
-                      <Button
-                        variant="contained"
-                        className={classes.confirmButton}
-                        onClick={() => handleConfirmAppointment(appointment._id)}
-                      >
-                        Confirm
-                      </Button>
-                      <Button
-                        variant="contained"
-                        className={classes.cancelButton}
-                        onClick={() => handleCancelAppointment(appointment._id)}
-                      >
-                        Cancel
-                      </Button>
-                    </Grid>
-                  )}
-                </Grid>
+              <ListItem key={appointment._id} className={`${classes.appointmentItem} ${classes.mobileAppointmentItem}`}>
+                <ListItemText
+                  primary={`Date: ${appointment.appointmentDate}, Time: ${appointment.appointmentTime}`}
+                  secondary={
+                    <span className={
+                      appointment.appointmentStatus === 'confirmed'
+                        ? classes.appointmentStatusConfirmed
+                        : classes.appointmentStatusCancelled
+                    }>
+                      Status: {appointment.appointmentStatus}
+                    </span>
+                  }
+                />
+                {/* Show appointment details */}
+                <ListItemText
+                  primary={`Appointment ID: ${appointment._id}`}
+                  secondary={`Client Name: ${appointment.clientName}, Service: ${appointment.service}`}
+                />
+                {appointment.appointmentStatus === 'scheduled' && (
+                  <div className={classes.buttonContainer}>
+                    <Button
+                      variant="contained"
+                      className={classes.confirmButton}
+                      onClick={() => handleConfirmAppointment(appointment._id)}
+                    >
+                      Confirm
+                    </Button>
+                    <Button
+                      variant="contained"
+                      className={classes.cancelButton}
+                      onClick={() => handleCancelAppointment(appointment._id)}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                )}
               </ListItem>
             ))}
           </List>
