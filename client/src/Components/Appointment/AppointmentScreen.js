@@ -215,7 +215,7 @@ const AppointmentsScreen = () => {
       setError('');
 
       // Use the correct base URL for your backend API
-      const baseURL = 'http://localhost:8000';
+      const baseURL = process.env.REACT_APP_BACKEND_URL;
       const response = await axios.get(`${baseURL}/getUserAppointments/${userId}`);
       setAppointments(response.data);
       setLoading(false);
@@ -250,7 +250,7 @@ const AppointmentsScreen = () => {
     };
 
     try {
-      const baseURL = 'http://localhost:8000';
+      const baseURL = process.env.REACT_APP_BACKEND_URL;
       const response = await axios.put(
         `${baseURL}/update/${selectedAppointment._id}`,
         updatedAppointmentData
@@ -347,7 +347,7 @@ const AppointmentsScreen = () => {
           </Typography>
         ) : (
           <List className={classes.appointmentList}>
-            {appointments.map((appointment) => (
+            {appointments?.map((appointment) => (
               <ListItem key={appointment._id} className={classes.appointmentItem}>
                 <ListItemText
                   primary={`Date: ${appointment.appointmentDate}, Time: ${appointment.appointmentTime}`}

@@ -33,14 +33,6 @@ const App = () => {
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<LandingPage />} />
-              <Route path="/contactus" element={<ContactUs />} />
-              <Route path="/faqs" element={<FAQs />} />
-              <Route path="/booking" element={<BookingRequest />} />
-              {/* Add the route for the AppointmentsScreen */}
-              <Route path="/appointments/:userId" element={<AppointmentsScreen />} />
-              {/* Add the route for the ServiceProviderAppointments */}
-              <Route path="/service-provider/:serviceProviderId/appointments" element={<ServiceProviderAppointments />} />
-
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot" element={<Forgotpassword />} />
               <Route path="/login" element={<Login />} />
@@ -52,6 +44,8 @@ const App = () => {
                 <Route path="/details" element={<DetailsPage />} />
                 <Route path="/booking" element={<BookingRequest />} />
                 <Route path="/user-profile" element={<UserProfile />} />
+                <Route path="/appointments/:userId" element={<AppointmentsScreen />} />
+                <Route path="/service-provider/:serviceProviderId/appointments" element={<ServiceProviderAppointments />} />
               </Route>
             </Routes>
           </div>

@@ -104,9 +104,9 @@ const Header = () => {
               >
                 Services
               </MenuItem>
-              <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
+              {/* <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
                 About Us
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 component={Link}
                 to="/contactus"
@@ -146,9 +146,9 @@ const Header = () => {
             <Button className={classes.menuButton} component={Link} to="/services">
               Services
             </Button>
-            <Button className={classes.menuButton} component={Link} to="/about">
+            {/* <Button className={classes.menuButton} component={Link} to="/about">
               About Us
-            </Button>
+            </Button> */}
             <Button className={classes.menuButton} component={Link} to="/contactus">
               Contact Us
             </Button>

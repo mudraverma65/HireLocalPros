@@ -42,7 +42,7 @@ router.get(
 );
 router.post("/updateAppointmentStatus/:id", AppointmentController.updateAppointmentStatus);
 
-router.put("/update/:id", appointmentController.updateAppointmentDetails);
+router.put("/update/:id", AppointmentController.updateAppointmentDetails);
 
 
 
