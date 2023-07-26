@@ -6,7 +6,6 @@ import FAQs from "./Components/FAQs";
 import Header from "./Components/Header";
 import Login from "./Components/Login/Login";
 import Signup from "./Components/SignUp/Signup";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
