@@ -1,0 +1,92 @@
+.category-card-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Display 6 cards in each row */
+    gap: 20px; /* Add some gap between the cards */
+    max-width: 100%;
+    width: 95%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    cursor: pointer!important;
+  }
+
+  .services-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Display 6 cards in each row */
+    gap: 30px; /* Add some gap between the cards */
+    max-width: 100%;
+    width: 80%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    cursor: pointer!important;
+  }
+  
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #526d82; /* Optional: Add a border around each card */
+    border-radius: 8px; /* Optional: Add border radius to the cards */
+    cursor: pointer!important;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    background-color: #f0f0f0; /* Optional: Add a background color for the icon container */
+    border-radius: 50%; /* To make the container circular, if desired */
+  }
+  
+  .category-icon {
+    width: 1.3em!important;
+    height: 1.3em!important;
+    font-size: 120px;
+    color: #27374d; /* Optional: Set the color of the icon */
+  }
+  
+  .category-heading {
+    text-align: center;
+    margin-top: 10px!important;
+  }
+  
+  .sectionHeadings{
+    padding: 20px 0px;
+  }
+
+  .servicesHeadings{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 100px auto 30px auto!important;
+    width: 80%;
+    height: 80px;
+    border-radius: 10px;
+    background-color: #27374d;
+    color: #f0f0f0;
+  }
+
+  @media (max-width: 600px){
+
+  .category-card-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .servicesHeadings{
+    margin: 80px auto 20px auto!important;
+    width: 90%;
+    height: 60px;
+    font-size: 24px!important;
+    border-radius: 7px;
+  }
+
+  .services-container{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+  }
+
+  .category-heading{
+    font-size: 18px!important;
+  }
+}
