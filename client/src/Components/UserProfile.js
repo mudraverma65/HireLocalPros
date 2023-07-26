@@ -16,11 +16,16 @@ import {
   Box,
   IconButton,
   InputAdornment,
+  Slider, // Import Slider component from MUI
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
+const useStyles = makeStyles((theme) => ({
+  // Add your custom styles here
+}));
+
 const UserProfile = () => {
-  const classes = makeStyles();
+  const classes = useStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState(null);
   const [editedUserData, setEditedUserData] = useState({});
@@ -36,15 +41,20 @@ const UserProfile = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [profileImage, setProfileImage] = useState('');
 
-   // New state variables for email notifications
-   const [isEmailNotificationEnabled, setIsEmailNotificationEnabled] = useState(false);
+  // New state variables for email notifications and SMS notifications
+  const [isEmailNotificationEnabled, setIsEmailNotificationEnabled] = useState(false);
+  const [isSmsNotificationEnabled, setIsSmsNotificationEnabled] = useState(false);
 
-   // Existing code for fetching user data and handling user data changes...
+  // Existing code for fetching user data and handling user data changes...
  
-   // New event handler for email notification changes
-   const handleEmailNotificationChange = (event) => {
-     setIsEmailNotificationEnabled(event.target.checked);
-   };
+  // New event handlers for email notification and SMS notification changes
+  const handleEmailNotificationChange = (event) => {
+    setIsEmailNotificationEnabled(event.target.checked);
+  };
+
+  const handleSmsNotificationChange = (event) => {
+    setIsSmsNotificationEnabled(event.target.checked);
+  };
 
   useEffect(() => {
     // Fetch user data including profileImage when the component mounts
@@ -299,6 +309,19 @@ const UserProfile = () => {
               variant="outlined"
               sx={{ backgroundColor: '#fff' }}
             />
+            {/* Email notification switch */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isEmailNotificationEnabled}
+                  onChange={handleEmailNotificationChange}
+                  disabled={!isEditing}
+                />
+              }
+              label="Enable Email Notifications"
+            />
+            {/* Additional fields */}
+            {/* ... (your other fields) ... */}
           </Grid>
 
           {/* Right Side */}
@@ -338,6 +361,17 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
               sx={{ backgroundColor: '#fff' }}
+            />
+            {/* SMS notification switch */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isSmsNotificationEnabled}
+                  onChange={handleSmsNotificationChange}
+                  disabled={!isEditing}
+                />
+              }
+              label="Enable SMS Notifications"
             />
             {/* Additional fields */}
             {/* ... (your other fields) ... */}
