@@ -39,25 +39,78 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  age: {
-    type: Number,
-    min: 18,
-    max: 99,
-    required: false,
-  },
-  experience: {
-    type: Number,
-    min: 0,
-    required: false,
-  },
-  about: {
-    type: String,
-    maxlength: 500,
-    required: false,
-  },
-  designation: {
+  category: {
     type: String,
     trim: true,
+    required: function () {
+      return this.isServiceProvider === true;
+    },
+  },
+  experience: {
+    type: String,
+    min: 0,
+    required: function () {
+      return this.isServiceProvider === true;
+    },
+  },
+  bio: {
+    type: String,
+    maxlength: 500,
+    required: function () {
+      return this.isServiceProvider === true;
+    },
+  },
+  location: {
+    type: String,
+    required: function () {
+      return this.isServiceProvider === true;
+    },
+    trim: true,
+  },
+  price: {
+    type: String,
+    trim: true,
+    required: function () {
+      return this.isServiceProvider === true;
+    },
+  },
+  rating: {
+    type: Number,
+    default: 1,
+    required: false,
+  },
+  rating: {
+    type: Number,
+    default: 0,
+    required: false,
+  },
+  address: {
+    type: String,
+    required: false,
+  },
+  city: {
+    type: String,
+    required: false,
+  },
+  languagepref: {
+    type: String,
+    required: false,
+  },
+  notificationpref: {
+    type: [String],
+    enum: ["SMS", "Email"],
+    required: false,
+  },
+  province: {
+    type: String,
+    required: false,
+  },
+  zip: {
+    type: String,
+    required: false,
+  },
+  bio: {
+    type: String,
     required: false,
   },
 });

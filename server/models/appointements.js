@@ -17,6 +17,18 @@ const appointmentSchema = new mongoose.Schema({
   appointmentDate: {
     type: String,
   },
+  appointmentStatus: {
+    type: String,
+  },
+  appointmentDetails: {
+    type: String,
+  },
+  contactEmail: {
+    type: String,
+  },
+  serviceDescription: {
+    type: String,
+  }
 });
 
 const Appointment = mongoose.model("Appointment", appointmentSchema);
