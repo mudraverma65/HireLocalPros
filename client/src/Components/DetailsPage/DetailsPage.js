@@ -120,7 +120,7 @@ const DetailsPage = () => {
   };
 
   const handleBookAppointment = () => {
-    navigate("/booking")
+    navigate("/booking", { state: { userId } })
   }
 
   return (
