@@ -53,7 +53,9 @@ const Header = () => {
   };
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    const inputValue = event.target.value;
+    setSearchTerm(inputValue.toLowerCase());
+
   };
 
   const handleSearchSubmit = () => {
