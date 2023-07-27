@@ -55,6 +55,10 @@ const Header = () => {
   const handleSearchChange = (event) => {
     const inputValue = event.target.value;
     setSearchTerm(inputValue.toLowerCase());
+<<<<<<< HEAD
+
+=======
+>>>>>>> 594a77bf9b051d5a728a6374222f77d8092ee2fe
   };
 
   const handleSearchSubmit = () => {
