@@ -78,13 +78,17 @@ exports.loginUser = async (req, res) => {
         .json({ message: "Invalid credentials", success: false });
     }
     const expirationTime = 5 * 60 * 60;
-    const token = jwt.sign(
-      JSON.parse(JSON.stringify(response)),
-      "localservicemarketplace",
-      {
-        expiresIn: expirationTime,
-      }
-    );
+    const payload = {
+      _id: response._id,
+      email: response.email,
+      password: response.password,
+      name: response.name,
+      contact: response.contact,
+      isServiceProvider: response.isServiceProvider,
+    };
+    const token = jwt.sign(payload, "localservicemarketplace", {
+      expiresIn: expirationTime,
+    });
     res.send({
       message: "Login successful",
       user: response,
