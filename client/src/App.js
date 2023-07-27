@@ -19,7 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // Import the ServiceProviderAppointments component
 import ServiceProviderAppointments from './Components/Appointment/ServiceProviderAppointments';
 
-import UserProfile from './Components/UserProfile';
+import UserProfile from './Components/UserProfile/UserProfile';
 
 const theme = createTheme({});
 
