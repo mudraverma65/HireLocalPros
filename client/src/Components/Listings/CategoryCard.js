@@ -11,6 +11,7 @@ import {
   PhotoCamera,
   Settings,
   Spa,
+  EmojiNature,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./CategoryCard.css";
@@ -28,6 +29,7 @@ const categoryData = [
   { category: "Photographer", icon: <PhotoCamera /> },
   { category: "Technician", icon: <Settings /> },
   { category: "Massage Therapist", icon: <Spa /> },
+  { category: "Gardener", icon: <EmojiNature /> },
 ];
 
 const CategoryCard = () => {
