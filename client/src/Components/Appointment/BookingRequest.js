@@ -12,10 +12,12 @@ import {
   MenuItem,
 } from "@mui/material";
 import DatePicker from "react-datepicker";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 const useStyles = makeStyles((theme) => ({
   bookingForm: {
@@ -121,7 +123,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const BookingRequest = () => {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = useState(null);
@@ -131,6 +132,8 @@ const BookingRequest = () => {
   const location = useLocation();
   const serviceProviderId = location.state.userId;
   const userId = localStorage.getItem("userId");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   console.log("----------------, Service provider ID", serviceProviderId);
 
@@ -146,6 +149,7 @@ const BookingRequest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Check if the time is valid (HH:mm format)
     const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):00$/;
@@ -182,17 +186,35 @@ const BookingRequest = () => {
         `${baseURL}/scheduleAppointment`,
         userData
       );
-      console.log("Appointment scheduled successfully:", response.data);
-      // Add any logic for success handling (e.g., show success message, redirect to confirmation page, etc.)
+      toast.success("Appointment Submitted successfully.");
+      setIsLoading(false);
+      const isServiceProvider =
+        localStorage.getItem("serviceProvider") === "true";
+      if (isServiceProvider) {
+        const serviceProviderId = localStorage.getItem("userId");
+        navigate(`/service-provider/${serviceProviderId}/appointments`);
+      } else {
+        const userId = localStorage.getItem("userId");
+        navigate(`/appointments/${userId}`);
+      }
     } catch (error) {
-      console.error("Error scheduling appointment:", error.response.data);
+      console.error(error.response.data);
+      toast.error("Error scheduling appointment:", error.response.data);
+      setIsLoading(false);
       // Add any logic for error handling (e.g., show error message, etc.)
     }
   };
-  
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Card style={{ width: '80%', backgroundColor: '#f5f5f5', color: '#27374d', marginTop: '100px' }}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <Card
+        style={{
+          width: "80%",
+          backgroundColor: "#f5f5f5",
+          color: "#27374d",
+          marginTop: "100px",
+        }}
+      >
         <CardContent>
           <Typography variant="h4" className="mb-4 form-heading">
             <span role="img" aria-label="Calendar Icon">
@@ -204,7 +226,7 @@ const BookingRequest = () => {
             Choose a date and time for your appointment
           </Typography>
           <form onSubmit={handleSubmit}>
-          {/* <div style={{ marginBottom: '20px' }}>
+            {/* <div style={{ marginBottom: '20px' }}>
           <Box mb={2}>
             <TextField
               label="Name"
@@ -225,45 +247,43 @@ const BookingRequest = () => {
             />
           </Box>
           {/* Other text fields */}
-          {/* </div> */} 
-          <div style={{ marginBottom: '20px', width: '100%' }}>
-            <input
-              type="text"
-              placeholder="Name*"
-              required
-              className="form-control"
-              style={{
-                backgroundColor: "transparent",
-                borderRadius: "6px",
-                width: "100%",
-                paddingRight: "30px",
-                height: "50px", // Set the desired height for the input field
-                border: "1px solid #ccc", // Add a border to the input field
-                paddingLeft: "12px", // Add some left padding for better appearance
-              }}
-            />
+            {/* </div> */}
+            <div style={{ marginBottom: "20px", width: "100%" }}>
+              <input
+                type="text"
+                placeholder="Name*"
+                required
+                className="form-control"
+                style={{
+                  backgroundColor: "transparent",
+                  borderRadius: "6px",
+                  width: "100%",
+                  paddingRight: "30px",
+                  height: "50px", // Set the desired height for the input field
+                  border: "1px solid #ccc", // Add a border to the input field
+                  paddingLeft: "12px", // Add some left padding for better appearance
+                }}
+              />
             </div>
-            <div style={{ marginBottom: '20px', width: '100%' }}>
-
-            <input
-              type="text"
-              placeholder="Email*"
-              required
-              name="email"
-              className="form-control"
-              style={{
-                backgroundColor: "transparent",
-                borderRadius: "6px",
-                width: "100%",
-                paddingRight: "30px",
-                height: "50px", // Set the desired height for the input field
-                border: "1px solid #ccc", // Add a border to the input field
-                paddingLeft: "12px", // Add some left padding for better appearance
-              }}
-            />
-
+            <div style={{ marginBottom: "20px", width: "100%" }}>
+              <input
+                type="text"
+                placeholder="Email*"
+                required
+                name="email"
+                className="form-control"
+                style={{
+                  backgroundColor: "transparent",
+                  borderRadius: "6px",
+                  width: "100%",
+                  paddingRight: "30px",
+                  height: "50px", // Set the desired height for the input field
+                  border: "1px solid #ccc", // Add a border to the input field
+                  paddingLeft: "12px", // Add some left padding for better appearance
+                }}
+              />
             </div>
-            <Grid container spacing={2} style={{ marginBottom: '20px' }}>
+            <Grid container spacing={2} style={{ marginBottom: "20px" }}>
               <Grid item xs={12} sm={6} md={6}>
                 <DatePicker
                   selected={selectedDate}
@@ -282,7 +302,7 @@ const BookingRequest = () => {
                   fullWidth
                   variant="outlined"
                   error={timeError}
-                  style={{ width: '40%' }}
+                  style={{ width: "40%" }}
                 >
                   <MenuItem value="" disabled>
                     Select time
@@ -300,9 +320,15 @@ const BookingRequest = () => {
                 )}
               </Grid>
             </Grid>
-            <button className={classes.PrimaryButton}>
-              Book Appointment
+            {isLoading ? (
+              <div className={classes.spinnerContainer}>
+                <Spinner />
+              </div>
+            ) : (
+              <button className={classes.PrimaryButton}>
+                Book Appointment
               </button>
+            )}
           </form>
         </CardContent>
       </Card>
@@ -311,7 +337,6 @@ const BookingRequest = () => {
 };
 
 export default BookingRequest;
-  
 
 //   return (
 //     <Card className={classes.bookingForm}>

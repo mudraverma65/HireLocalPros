@@ -18,6 +18,7 @@ import AppointmentsScreen from './Components/Appointment/AppointmentScreen';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // Import the ServiceProviderAppointments component
 import ServiceProviderAppointments from './Components/Appointment/ServiceProviderAppointments';
+import Footer from "./Components/Footer";
 
 import UserProfile from './Components/UserProfile/UserProfile';
 
@@ -49,7 +50,7 @@ const App = () => {
               </Route>
             </Routes>
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </Router>
     </ThemeProvider>
