@@ -172,6 +172,38 @@ p {
     width: 100%;
 }
 
+.PrimaryButton {
+    background-color: #27374d;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+  }
+
+  .SecondaryButton {
+    background-color: #526d83;
+    color: #ffffff;
+    border: 2px solid #9db2bf;
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Additional styles for hover and focus effects */
+  .PrimaryButton:hover, .SecondaryButton:hover {
+    opacity: 0.9;
+  }
+  
+  .PrimaryButton:focus, .SecondaryButton:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  }
+
 @media screen and (max-width: 720px) {
     .imageContainer {
         width: 200px;
