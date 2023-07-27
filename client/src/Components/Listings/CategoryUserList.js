@@ -1,5 +1,5 @@
 import "./UserCard.css";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { CategoryUser } from "../../services/user.service";
 import UserCard from './UserCard';
@@ -9,7 +9,6 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 const CategoryUserList = () => {
   const [sortingOrder, setSortingOrder] = useState("asc");
   const [sortingField, setSortingField] = useState("price");
-  const [sortedUsers, setSortedUsers] = useState([]);
   const [locationFilter, setLocationFilter] = useState('');
   const [sortedAndFilteredUsers, setSortedAndFilteredUsers] = useState([]);
 

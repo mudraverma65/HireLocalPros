@@ -15,11 +15,22 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 
 const Header = () => {
+  const isServiceProvider = localStorage.getItem("serviceProvider") === "true";
+
+  const getAppointmentsRoute = () => {
+    if (isServiceProvider) {
+      const serviceProviderId = localStorage.getItem("userId");
+      return `/service-provider/${serviceProviderId}/appointments`;
+    } else {
+      const userId = localStorage.getItem("userId");
+      return `/appointments/${userId}`;
+    }
+  };
   const classes = useStyles();
   const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("userId");
@@ -47,7 +58,7 @@ const Header = () => {
   };
 
   const handleSearchSubmit = () => {
-    if (searchTerm.trim() !== '') {
+    if (searchTerm.trim() !== "") {
       navigate(`/category/${searchTerm}`);
     }
   };
@@ -87,9 +98,6 @@ const Header = () => {
               open={Boolean(menuAnchorEl)}
               onClose={handleMenuClose}
             >
-              {/* <MenuItem component={Link} to="/" onClick={handleMenuClose}>
-                Home
-              </MenuItem> */}
               <MenuItem
                 component={Link}
                 to="/services"
@@ -97,9 +105,9 @@ const Header = () => {
               >
                 Services
               </MenuItem>
-              <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
+              {/* <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
                 About Us
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 component={Link}
                 to="/contactus"
@@ -107,20 +115,27 @@ const Header = () => {
               >
                 Contact Us
               </MenuItem>
+              {/* New menu items */}
+              <MenuItem
+                component={Link}
+                to="/myappointments"
+                onClick={handleMenuClose}
+              >
+                My Appointments
+              </MenuItem>
+              <MenuItem
+                component={Link}
+                to="/myprofile"
+                onClick={handleMenuClose}
+              >
+                My Profile
+              </MenuItem>
               {!isLoggedIn ? (
-                <MenuItem
-                  component={Link}
-                  to="/login"
-                  onClick={handleMenuClose}
-                >
+                <MenuItem component={Link} to="/login" onClick={handleMenuClose}>
                   Login
                 </MenuItem>
               ) : (
-                <MenuItem
-                  component={Link}
-                  to="/login"
-                  onClick={handleMenuClose}
-                >
+                <MenuItem component={Link} to="/login" onClick={handleLogout}>
                   Logout
                 </MenuItem>
               )}
@@ -129,38 +144,28 @@ const Header = () => {
         </Hidden>
         <Hidden xsDown>
           <div>
-            <Button
-              className={classes.menuButton}
-              component={Link}
-              to="/services"
-            >
+            <Button className={classes.menuButton} component={Link} to="/services">
               Services
             </Button>
-            <Button className={classes.menuButton} component={Link} to="/about">
+            {/* <Button className={classes.menuButton} component={Link} to="/about">
               About Us
-            </Button>
-            <Button
-              className={classes.menuButton}
-              component={Link}
-              to="/contactus"
-            >
+            </Button> */}
+            <Button className={classes.menuButton} component={Link} to="/contactus">
               Contact Us
             </Button>
+            {/* New menu items */}
+            <Button className={classes.menuButton} component={Link} to={getAppointmentsRoute()}>
+              My Appointments
+            </Button>
+            <Button className={classes.menuButton} component={Link} to="/user-profile">
+              My Profile
+            </Button>
             {!isLoggedIn ? (
-              <Button
-                className={classes.menuButton}
-                component={Link}
-                to="/login"
-              >
+              <Button className={classes.menuButton} component={Link} to="/login">
                 Login
               </Button>
             ) : (
-              <Button
-                className={classes.menuButton}
-                component={Link}
-                to="/login"
-                onClick={handleLogout}
-              >
+              <Button className={classes.menuButton} component={Link} to="/login" onClick={handleLogout}>
                 Logout
               </Button>
             )}

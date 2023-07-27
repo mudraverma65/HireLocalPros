@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, ClickAwayListener, Grid } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import useStyles from "../../styles/styles.js";
 import "./DetailsPage.css";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -14,6 +14,10 @@ import {
   GetPostInformation,
   PostComment,
 } from "../../services/user.service.js";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Typography } from '@mui/material';
+// import { Rating } from '@mui/material';
+
 const DetailsPage = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +31,14 @@ const DetailsPage = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const classes = useStyles();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const userId = location.state.profileData._id;
 
   const getPostInformation = async () => {
     try {
       setUserLoading(true);
-      const response = await GetPostInformation("64ba9525efecb57c5cbb34aa");
+      const response = await GetPostInformation(userId);
       setUserDetails(response.data.user);
       setReviews(response.data.reviews);
       setUserLoading(false);
@@ -42,10 +49,10 @@ const DetailsPage = () => {
 
   useEffect(() => {
     getPostInformation();
-  }, []);
+  }, [userId]);
 
   const handleBack = () => {
-    console.log("Back button clicked");
+    navigate("/services");
   };
 
   const stringToColor = (string) => {
@@ -95,7 +102,7 @@ const DetailsPage = () => {
     try {
       const requestBody = {
         postId: "64ab3f0444602e7cf57f3717",
-        userId: localStorage.getItem("userId"),
+        userId: userId,
         username: localStorage.getItem("userName"),
         rating: parseInt(commentData.rating),
         review: commentData.review,
@@ -115,6 +122,10 @@ const DetailsPage = () => {
     }
   };
 
+  const handleBookAppointment = () => {
+    navigate("/booking", { state: { userId } })
+  }
+
   return (
     <>
       {userLoading ? (
@@ -125,7 +136,7 @@ const DetailsPage = () => {
             <Box className={classes.detailsPageContainer}>
               <div className="backarrowContainer" onClick={handleBack}>
                 <KeyboardBackspaceIcon />
-                <p>Back</p>
+                <Typography variant="body1">Back</Typography>
               </div>
               <Grid
                 container
@@ -143,22 +154,33 @@ const DetailsPage = () => {
                   <div className="imageContainer">
                     <img
                       className="image"
-                      src={require("../../images/architectureimage.jpg")}
+                      alt="architecture"
+                      src={require("../../images/profile.jpg")}
                     />
                   </div>
                   <div className="profileDetailsContainer">
-                    <p className="name">{userDetails.name}</p>
-                    <p className="designation">{userDetails.category}</p>
-                    <p className="email">@{userDetails.email}</p>
+                    <Typography variant="h4" className="name">
+                      {userDetails.name}
+                    </Typography>
+                    <Typography variant="body1" className="designation">
+                      {userDetails.category}
+                    </Typography>
+                    <Typography variant="body1" className="email">
+                      @{userDetails.email}
+                    </Typography>
                     <div className="locationContainer">
-                      <PhoneIcon style={{ color: "#0F5132", fontSize: "16px" }} />
-                      <p style={{marginLeft: "10px"}}>{userDetails.contact}</p>
+                      <PhoneIcon
+                        style={{ color: "#0F5132", fontSize: "16px" }}
+                      />
+                      <Typography variant="body1" style={{ marginLeft: "10px" }}>
+                        {userDetails.contact}
+                      </Typography>
                     </div>
                     <div className="locationContainer">
                       <PlaceIcon style={{ color: "#ea4335" }} />
-                      <p>{userDetails.location}</p>
+                      <Typography variant="body1">{userDetails.location}</Typography>
                     </div>
-                    <button className={classes.button}>Book Appointment</button>
+                    <button className="PrimaryButton" onClick={handleBookAppointment}>Book Appointment</button>
                   </div>
                 </Grid>
                 <Grid
@@ -170,21 +192,32 @@ const DetailsPage = () => {
                   className={classes.rightContainer}
                 >
                   <div className="rightContentContainer">
-                    <p className="title" style={{ marginTop: "0px" }}>
-                      Price Ranges
-                    </p>
-                    <p className="price">{userDetails.price}</p>
-                    <p className="title">Experience</p>
-                    <p>{userDetails.experience} Year</p>
-                    <p className="title">About Me</p>
-                    <p className="description">{userDetails.bio}</p>
-                    <p className="title">Ratings</p>
-                    <Rating
-                      name="read-only"
-                      value={userDetails.rating}
-                      readOnly
-                    />
-                    <p className="title">Related Work Images</p>
+                  <Typography variant="h6" style={{ marginTop: 0 }}>
+                    Price Ranges
+                  </Typography>
+                  <Typography variant="subtitle1" className="price">
+                    {userDetails.price}
+                  </Typography>
+
+                  <Typography variant="h6" style={{ marginTop: '16px' }}>
+                    Experience
+                  </Typography>
+                  <Typography variant="body1">{userDetails.experience} Year</Typography>
+
+                  <Typography variant="h6" style={{ marginTop: '16px' }}>
+                    About Me
+                  </Typography>
+                  <Typography variant="body1" className="description">
+                    {userDetails.bio}
+                  </Typography>
+                  <Typography variant="h6" style={{ marginTop: '16px' }}>
+                    Ratings
+                  </Typography>
+                  <Rating name="read-only" value={userDetails.rating} readOnly />
+
+                  <Typography variant="h6" style={{ marginTop: '16px' }}>
+                    Related Work Images
+                  </Typography>
                     <div className="relatedWorkImagesContainer">
                       <img
                         className="relatedWorkImage"
@@ -202,13 +235,17 @@ const DetailsPage = () => {
                         src={require("../../images/architectureimage.jpg")}
                       />
                     </div>
-                    <p className="title">Reviews</p>
+                    <Typography variant="h6" style={{ marginTop: '16px' }}>
+                    Reviews
+                  </Typography>
                     <div className="commentsContainer">
                       {reviews?.map((val, index) => (
                         <div className="comment" key={index}>
                           <div className="userComment">
                             <Avatar {...stringAvatar(val.username)} />
-                            <p className="commentText">{val.review}</p>
+                            <Typography variant="body1" className="commentText">
+                              {val.review}
+                            </Typography>
                           </div>
                           <div style={{ marginTop: "10px" }}>
                             <Rating
@@ -220,7 +257,7 @@ const DetailsPage = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="writeCommentButton" onClick={handleOpen}>
+                    <div className="PrimaryButton" onClick={handleOpen}>
                       Write your review
                     </div>
                     <Modal
@@ -231,9 +268,11 @@ const DetailsPage = () => {
                     >
                       <Box className={classes.modal}>
                         <div className="postCommentContainer">
-                          <p className="modalTitle">Post Comment</p>
+                        <Typography variant="h6" id="modal-modal-title">
+                          Write Your Review
+                        </Typography>
                           <form className="commentForm" onSubmit={handleSubmit}>
-                            <label>
+                            {/* <label>
                               Rating <span className="required">*</span>
                             </label>
                             <input
@@ -244,11 +283,23 @@ const DetailsPage = () => {
                               value={commentData.rating}
                               onChange={(e) => handleChange(e)}
                               required
-                            />
-                            <label>
-                              Write your review{" "}
-                              <span className="required">*</span>
-                            </label>
+                            /> */}
+
+                            <div className="ratingContainer">
+                                <label>
+                                  Rating <span className="required">*</span>
+                                </label>
+                                <Rating
+                                  name="rating"
+                                  value={commentData.rating}
+                                  onChange={(e) => handleChange(e)}                    
+                                  required
+                                />                    
+                              </div>
+
+                              <Typography variant="body1" component="label">
+                                Write your review <span className="required">*</span>
+                              </Typography>
                             <textarea
                               type="text"
                               name="review"
@@ -263,7 +314,7 @@ const DetailsPage = () => {
                                 <Spinner />
                               </div>
                             ) : (
-                              <button type="submit" className={classes.button}>
+                              <button type="submit" className="PrimaryButton">
                                 Submit
                               </button>
                             )}
