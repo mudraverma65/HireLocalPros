@@ -190,14 +190,7 @@ const UserProfile = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const fileSizeInBytes = file.size;
-    const maxSizeInBytes = 1024 * 1024;
-    if (fileSizeInBytes > maxSizeInBytes) {
-      toast.error(
-        "File size exceeds the limit (50KB). Please choose a smaller file."
-      );
-      return;
-    }
+
     if (!file) return;
 
     const reader = new FileReader();
