@@ -7,12 +7,13 @@ import {
   Button,
   InputBase,
   IconButton,
-  Menu,
-  MenuItem,
   Hidden,
+  Menu, // Add the import for Menu
+  MenuItem, // Add the import for MenuItem
 } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
+import NotificationsIcon from "@material-ui/icons/Notifications"; // Import notifications icon
 
 const Header = () => {
   const isServiceProvider = localStorage.getItem("serviceProvider") === "true";
@@ -27,10 +28,11 @@ const Header = () => {
     }
   };
   const classes = useStyles();
-  const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("userId");
@@ -55,16 +57,21 @@ const Header = () => {
   const handleSearchChange = (event) => {
     const inputValue = event.target.value;
     setSearchTerm(inputValue.toLowerCase());
-<<<<<<< HEAD
-
-=======
->>>>>>> 594a77bf9b051d5a728a6374222f77d8092ee2fe
   };
 
   const handleSearchSubmit = () => {
     if (searchTerm.trim() !== "") {
       navigate(`/category/${searchTerm}`);
     }
+  };
+
+  const handleNotificationClick = () => {
+    // Do any necessary logic related to notifications here
+    // For example, fetch the notification count from the server
+    // For now, we'll just set the count to a random number for demonstration
+    setNotificationCount(5);
+    // Redirect to the notification component when the bell icon is clicked
+    navigate("/notifications"); // Update the route to the actual notification component
   };
 
   return (
@@ -173,6 +180,21 @@ const Header = () => {
                 Logout
               </Button>
             )}
+
+            {/* Add the notification bell icon */}
+            <IconButton
+              color="primary"
+              className={classes.notificationIcon}
+              aria-label="notifications"
+              onClick={handleNotificationClick}
+            >
+              <NotificationsIcon />
+              {notificationCount > 0 && (
+                <span className={classes.notificationBadge}>
+                  {notificationCount}
+                </span>
+              )}
+            </IconButton>
           </div>
         </Hidden>
       </Toolbar>

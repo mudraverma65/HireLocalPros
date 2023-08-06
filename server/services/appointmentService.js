@@ -1,4 +1,6 @@
 const Appointment = require("../models/appointements");
+const User = require("../models/user");
+const notificationService = require("./notificationService");
 
 exports.scheduleAppointment = async (appointmentDetails) => {
   try {
@@ -8,14 +10,39 @@ exports.scheduleAppointment = async (appointmentDetails) => {
       appointmentTime,
       appointmentDate,
     });
+
     if (existingAppointment) {
       return {
         success: false,
         message: "This slot is already booked. Please, choose another one.",
       };
     }
+
     const appointment = new Appointment(appointmentDetails);
-    return await appointment.save();
+    const savedAppointment = await appointment.save();
+
+    // Get the user details for the service provider
+    const serviceProvider = await User.findById(
+      appointmentDetails.serviceProviderUserId
+    );
+
+    // Get the user details for the user who scheduled the appointment
+    const user = await User.findById(appointmentDetails.userId);
+
+    // Create and send a notification for the appointment here
+    const notificationDetails = {
+      userId: appointmentDetails.userId,
+      title: "Appointment Scheduled",
+      content: `Your appointment has been scheduled successfully with ${
+        serviceProvider.name
+      }.`,
+      email : appointmentDetails.contactEmail ,
+      status: "Appointment Scheduled"
+    };
+
+    await notificationService.createNotification(notificationDetails);
+
+    return savedAppointment;
   } catch (error) {
     return error;
   }
@@ -24,6 +51,24 @@ exports.scheduleAppointment = async (appointmentDetails) => {
 exports.cancelAppointment = async (appointmentId) => {
   try {
     const appointment = await Appointment.findByIdAndDelete(appointmentId);
+
+    // Get the user details for the service provider
+    const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+
+    // Get the user details for the user who scheduled the appointment
+    const user = await User.findById(appointment.userId);
+
+    // Create and send a notification for the appointment cancellation here
+    const notificationDetails = {
+      userId: appointment.userId,
+      title: "Appointment Cancelled",
+      content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
+      email: appointmentDetails.contactEmail,
+      status: "Appointment Cancelled"
+    };
+
+    await notificationService.createNotification(notificationDetails);
+
     return appointment;
   } catch (error) {
     return error;
@@ -48,7 +93,6 @@ exports.getAppointmentsByServiceProviderId = async (serviceProviderUserId) => {
   }
 };
 
-
 exports.getAppointmentById = async (appointmentId) => {
   try {
     const appointment = await Appointment.findById(appointmentId);
@@ -71,6 +115,23 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
 
     if (flag === "cancel") {
       appointment.appointmentStatus = "cancelled";
+
+      // Get the user details for the service provider
+      const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+
+      // Get the user details for the user who scheduled the appointment
+      const user = await User.findById(appointment.userId);
+
+      // Create and send a notification for the appointment cancellation here
+      const notificationDetails = {
+        userId: appointment.userId,
+        title: "Appointment Cancelled",
+        content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
+        email: appointmentDetails.contactEmail,
+        status: "Appointment Updated"
+      };
+
+      await notificationService.createNotification(notificationDetails);
     } else if (flag === "confirm") {
       appointment.appointmentStatus = "confirmed";
     } else {
@@ -91,7 +152,6 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
   }
 };
 
-
 exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
   try {
     const appointment = await Appointment.findById(appointmentId);
@@ -111,6 +171,23 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
     appointment.serviceDescription = updatedDetails.serviceDescription;
 
     await appointment.save();
+
+    // Get the user details for the service provider
+    const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+
+    // Get the user details for the user who scheduled the appointment
+    const user = await User.findById(appointment.userId);
+
+    // Create and send a notification for the appointment details update here
+    const notificationDetails = {
+      userId: appointment.userId,
+      title: "Appointment Details Updated",
+      content: `Your appointment details with ${serviceProvider.name} have been updated.`,
+      email: appointmentDetails.contactEmail,
+      status: "Appointment Details Updated" 
+    };
+
+    await notificationService.createNotification(notificationDetails);
 
     return {
       success: true,
