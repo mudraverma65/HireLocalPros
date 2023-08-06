@@ -10,13 +10,22 @@ import {
   Hidden,
   Menu, // Add the import for Menu
   MenuItem, // Add the import for MenuItem
+  Badge,
+  Box,
 } from "@material-ui/core";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import NotificationsIcon from "@material-ui/icons/Notifications"; // Import notifications icon
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import Modal from "@mui/material/Modal";
+import NotificationComponent from "./NotificationComponent";
+import { GetNotifications } from "../services/user.service";
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
+
   const isServiceProvider = localStorage.getItem("serviceProvider") === "true";
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const getAppointmentsRoute = () => {
     if (isServiceProvider) {
@@ -33,12 +42,21 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [notificationCount, setNotificationCount] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+
+  const fetchNotifications = async () => {
+    const response = await GetNotifications(localStorage.getItem("userId"));
+    console.log(response.data);
+    setNotifications(response.data);
+    setNotificationCount(response.data.length);
+  };
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("userId");
     if (isLoggedIn) {
       setIsLoggedIn(true);
     }
+    fetchNotifications();
   }, []);
 
   const handleMenuOpen = (event) => {
@@ -47,6 +65,11 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
+  };
+
+  const handleNotificationCloseResponsive = () => {
+    setMenuAnchorEl(null);
+    setOpen(true);
   };
 
   const handleLogout = () => {
@@ -63,15 +86,6 @@ const Header = () => {
     if (searchTerm.trim() !== "") {
       navigate(`/category/${searchTerm}`);
     }
-  };
-
-  const handleNotificationClick = () => {
-    // Do any necessary logic related to notifications here
-    // For example, fetch the notification count from the server
-    // For now, we'll just set the count to a random number for demonstration
-    setNotificationCount(5);
-    // Redirect to the notification component when the bell icon is clicked
-    navigate("/notifications"); // Update the route to the actual notification component
   };
 
   return (
@@ -111,6 +125,19 @@ const Header = () => {
             >
               <MenuItem
                 component={Link}
+                onClick={handleNotificationCloseResponsive}
+              >
+                <Badge
+                  badgeContent={notificationCount}
+                  color="secondary"
+                  className={classes.notifications}
+                  onClick={handleOpen}
+                >
+                  <NotificationsIcon color="primary" />
+                </Badge>
+              </MenuItem>
+              <MenuItem
+                component={Link}
                 to="/services"
                 onClick={handleMenuClose}
               >
@@ -142,7 +169,11 @@ const Header = () => {
                 My Profile
               </MenuItem>
               {!isLoggedIn ? (
-                <MenuItem component={Link} to="/login" onClick={handleMenuClose}>
+                <MenuItem
+                  component={Link}
+                  to="/login"
+                  onClick={handleMenuClose}
+                >
                   Login
                 </MenuItem>
               ) : (
@@ -155,47 +186,75 @@ const Header = () => {
         </Hidden>
         <Hidden xsDown>
           <div>
-            <Button className={classes.menuButton} component={Link} to="/services">
+            <Badge
+              badgeContent={notificationCount}
+              color="secondary"
+              className={classes.notifications}
+              onClick={handleOpen}
+            >
+              <NotificationsIcon color="primary" />
+            </Badge>
+            <Button
+              className={classes.menuButton}
+              component={Link}
+              to="/services"
+            >
               Services
             </Button>
             {/* <Button className={classes.menuButton} component={Link} to="/about">
               About Us
             </Button> */}
-            <Button className={classes.menuButton} component={Link} to="/contactus">
+            <Button
+              className={classes.menuButton}
+              component={Link}
+              to="/contactus"
+            >
               Contact Us
             </Button>
             {/* New menu items */}
-            <Button className={classes.menuButton} component={Link} to={getAppointmentsRoute()}>
+            <Button
+              className={classes.menuButton}
+              component={Link}
+              to={getAppointmentsRoute()}
+            >
               My Appointments
             </Button>
-            <Button className={classes.menuButton} component={Link} to="/user-profile">
+            <Button
+              className={classes.menuButton}
+              component={Link}
+              to="/user-profile"
+            >
               My Profile
             </Button>
             {!isLoggedIn ? (
-              <Button className={classes.menuButton} component={Link} to="/login">
+              <Button
+                className={classes.menuButton}
+                component={Link}
+                to="/login"
+              >
                 Login
               </Button>
             ) : (
-              <Button className={classes.menuButton} component={Link} to="/login" onClick={handleLogout}>
+              <Button
+                className={classes.menuButton}
+                component={Link}
+                to="/login"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             )}
-
-            {/* Add the notification bell icon */}
-            <IconButton
-              color="primary"
-              className={classes.notificationIcon}
-              aria-label="notifications"
-              onClick={handleNotificationClick}
-            >
-              <NotificationsIcon />
-              {notificationCount > 0 && (
-                <span className={classes.notificationBadge}>
-                  {notificationCount}
-                </span>
-              )}
-            </IconButton>
           </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box className={classes.notificationModal}>
+              <NotificationComponent notifications={notifications} />
+            </Box>
+          </Modal>
         </Hidden>
       </Toolbar>
     </AppBar>

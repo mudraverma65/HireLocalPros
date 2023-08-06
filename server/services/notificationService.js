@@ -33,7 +33,7 @@ exports.createNotification = async (notificationDetails) => {
     const savedNotification = await notification.save();
 
     // Send an email notification
-    const to = notificationDetails.email; // Replace with the actual recipient's email
+    const to = notificationDetails.email;
     const subject = notificationDetails.status;
     const content = "You have a new notification. Check HireLocalPros Application: \n" + notificationDetails.content ;
     await sendEmail(to, subject, content);
