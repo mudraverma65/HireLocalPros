@@ -21,6 +21,7 @@ import ServiceProviderAppointments from './Components/Appointment/ServiceProvide
 import Footer from "./Components/Footer";
 
 import UserProfile from './Components/UserProfile/UserProfile';
+import NotificationComponent from "./Components/NotificationComponent";
 
 const theme = createTheme({});
 
@@ -45,6 +46,7 @@ const App = () => {
                 <Route path="/details" element={<DetailsPage />} />
                 <Route path="/booking" element={<BookingRequest />} />
                 <Route path="/user-profile" element={<UserProfile />} />
+                <Route path="/notifications" element={<NotificationComponent />} />
                 <Route path="/appointments/:userId" element={<AppointmentsScreen />} />
                 <Route path="/service-provider/:serviceProviderId/appointments" element={<ServiceProviderAppointments />} />
               </Route>
