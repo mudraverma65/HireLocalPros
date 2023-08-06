@@ -20,3 +20,7 @@ export const PostComment = (data) => axios.post(`${USER_AUTH_BASE_URL}/addReview
 export const GetPostInformation = (id) => axios.get(`${USER_AUTH_BASE_URL}/userInformation/${id}`);
 
 export const CategoryUser = (category) => api.get(`${USER_AUTH_BASE_URL}/category/${category}`);
+
+export const CreateNotification = (data) => axios.post(`${USER_AUTH_BASE_URL}/createNotifications`, data);
+export const GetNotifications = (id) => axios.get(`${USER_AUTH_BASE_URL}/getNotifications/${id}`);
+export const DeleteNotification = (id) => axios.get(`${USER_AUTH_BASE_URL}/deleteNotification/${id}`);

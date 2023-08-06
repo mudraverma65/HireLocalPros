@@ -398,6 +398,32 @@ const useStyles = makeStyles((theme) => ({
       width: "25%",
     },
   },
+  notifications: {
+    marginRight: "15px"
+  },
+  notificationModal: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    maxHeight: "400px",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#fff",
+    borderRadius: "20px",
+    overflowY: "auto",
+    padding: "20px",
+    [theme.breakpoints.up("md")]: {
+      width: "95%",
+    },
+    [theme.breakpoints.up("xs")]: {
+      width: "90%",
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: "40%",
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "25%",
+    },
+  }
 }));
 
 export default useStyles;
