@@ -88,6 +88,12 @@ const Header = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit();
+    }
+  };
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
@@ -97,11 +103,12 @@ const Header = () => {
         <div className={classes.searchContainer}>
           <div className={classes.searchBox}>
             <InputBase
-              placeholder="Search for services near you..."
+              placeholder="Search for services..."
               className={classes.searchInput}
               inputProps={{ "aria-label": "search" }}
               value={searchTerm}
               onChange={handleSearchChange}
+              onKeyPress={handleKeyPress}
             />
             <IconButton
               color="primary"
@@ -143,9 +150,6 @@ const Header = () => {
               >
                 Services
               </MenuItem>
-              {/* <MenuItem component={Link} to="/about" onClick={handleMenuClose}>
-                About Us
-              </MenuItem> */}
               <MenuItem
                 component={Link}
                 to="/contactus"
@@ -207,7 +211,7 @@ const Header = () => {
             <Button
               className={classes.menuButton}
               component={Link}
-              to="/contactus"
+              to="/contact"
             >
               Contact Us
             </Button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import "./Login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import useStyles from "../../styles/styles.js";
@@ -9,6 +9,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/AuthContext";
 import Spinner from "../Spinner/Spinner";
+
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
@@ -41,6 +42,7 @@ const Login = () => {
       }
     },
   });
+
   return (
     <Grid container justify="center">
       <Grid item xs={12} sm={8} md={6}>
@@ -55,32 +57,54 @@ const Login = () => {
             <p className="subtitle">Local Service Marketplace</p>
           </div>
           <form className="form" onSubmit={formik.handleSubmit}>
-            <label>
+            <Typography>
               Email <span className="required">*</span>
-            </label>
-            <input
+            </Typography>
+            <TextField
               type="email"
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="form-control inputField"
+              className={classes.textField}
               placeholder="Email *"
+              variant="outlined"
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
               required
+              fullWidth
+              style={{ marginTop: "10px" }}
             />
-            <label>
+
+            <Typography>
               Password <span className="required">*</span>
-            </label>
-            <input
+            </Typography>
+            <TextField
               type="password"
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="form-control inputField"
+              className={classes.textField}
               placeholder="Password *"
+              variant="outlined"
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               required
+              fullWidth
+              style={{ marginTop: "10px" }}
             />
+
+            {isLoading ? (
+              <div className={classes.spinnerContainer}>
+                <Spinner />
+              </div>
+            ) : (
+              <button type="submit" className={classes.button}>
+                Login
+              </button>
+            )}
+
             {formik.touched.email && formik.errors.email && (
               <div className="error">
                 <CancelIcon />
@@ -93,18 +117,10 @@ const Login = () => {
                 <p>{formik.errors.password}</p>
               </div>
             )}
+
             <NavLink className="link forgot" to="/forgot">
               Forgot Password?
             </NavLink>
-            {isLoading ? (
-              <div className={classes.spinnerContainer}>
-                <Spinner />
-              </div>
-            ) : (
-              <button type="submit" className={classes.button}>
-                Login
-              </button>
-            )}
 
             <div className="signup">
               <NavLink to="/signup" className="link">

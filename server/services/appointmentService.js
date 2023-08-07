@@ -63,7 +63,7 @@ exports.cancelAppointment = async (appointmentId) => {
       userId: appointment.userId,
       title: "Appointment Cancelled",
       content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
-      email: appointmentDetails.contactEmail,
+      email: appointment.contactEmail,
       status: "Appointment Cancelled"
     };
 
@@ -104,7 +104,7 @@ exports.getAppointmentById = async (appointmentId) => {
 
 exports.updateAppointmentStatus = async (appointmentId, flag) => {
   try {
-    const appointment = await Appointment.findById(appointmentId);
+    const appointment = await Appointment.find({appointmentId});
 
     if (!appointment) {
       return {
@@ -115,6 +115,7 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
 
     if (flag === "cancel") {
       appointment.appointmentStatus = "cancelled";
+      await appointment.save();
 
       // Get the user details for the service provider
       const serviceProvider = await User.findById(appointment.serviceProviderUserId);
@@ -127,13 +128,30 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
         userId: appointment.userId,
         title: "Appointment Cancelled",
         content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
-        email: appointmentDetails.contactEmail,
+        email: appointment.contactEmail,
         status: "Appointment Updated"
       };
 
       await notificationService.createNotification(notificationDetails);
     } else if (flag === "confirm") {
       appointment.appointmentStatus = "confirmed";
+      await appointment.save();
+
+      const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+
+      // Get the user details for the user who scheduled the appointment
+      const user = await User.findById(appointment.userId);
+
+      // Create and send a notification for the appointment cancellation here
+      const notificationDetails = {
+        userId: appointment.userId,
+        title: "Appointment Cancelled",
+        content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
+        email: appointment.contactEmail,
+        status: "Appointment Updated"
+      };
+      await notificationService.createNotification(notificationDetails);
+
     } else {
       return {
         success: false,
@@ -159,16 +177,17 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
     if (!appointment) {
       return {
         success: false,
-        message: "Appointment not found",
+        message: "Appointment not found.",
       };
     }
 
     // Update the appointment with the new details
     appointment.appointmentTime = updatedDetails.appointmentTime;
     appointment.appointmentDate = updatedDetails.appointmentDate;
-    appointment.appointmentDetails = updatedDetails.appointmentDetails;
+    appointment.appointmentStatus = updatedDetails.appointmentStatus
     appointment.contactEmail = updatedDetails.contactEmail;
     appointment.serviceDescription = updatedDetails.serviceDescription;
+    appointment.appointmentDetails = updatedDetails.appointmentDetails;
 
     await appointment.save();
 
@@ -183,7 +202,7 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
       userId: appointment.userId,
       title: "Appointment Details Updated",
       content: `Your appointment details with ${serviceProvider.name} have been updated.`,
-      email: appointmentDetails.contactEmail,
+      email: appointment.contactEmail,
       status: "Appointment Details Updated" 
     };
 

@@ -215,7 +215,7 @@ const DetailsPage = () => {
                   </Typography>
                   <Rating name="read-only" value={userDetails.rating} readOnly />
 
-                  <Typography variant="h6" style={{ marginTop: '16px' }}>
+                  {/* <Typography variant="h6" style={{ marginTop: '16px' }}>
                     Related Work Images
                   </Typography>
                     <div className="relatedWorkImagesContainer">
@@ -234,7 +234,7 @@ const DetailsPage = () => {
                         alt="relwork"
                         src={require("../../images/architectureimage.jpg")}
                       />
-                    </div>
+                    </div> */}
                     <Typography variant="h6" style={{ marginTop: '16px' }}>
                     Reviews
                   </Typography>
@@ -272,49 +272,37 @@ const DetailsPage = () => {
                           Write Your Review
                         </Typography>
                           <form className="commentForm" onSubmit={handleSubmit}>
-                            {/* <label>
+                            <div className="ratingContainer">
+                            <Typography variant="body1">
                               Rating <span className="required">*</span>
-                            </label>
-                            <input
-                              type="text"
+                            </Typography>
+                            <Rating
                               name="rating"
-                              className="form-control inputField"
-                              placeholder="i.e 2 *"
                               value={commentData.rating}
                               onChange={(e) => handleChange(e)}
                               required
-                            /> */}
-
-                            <div className="ratingContainer">
-                                <label>
-                                  Rating <span className="required">*</span>
-                                </label>
-                                <Rating
-                                  name="rating"
-                                  value={commentData.rating}
-                                  onChange={(e) => handleChange(e)}                    
-                                  required
-                                />                    
+                            />                   
                               </div>
-
                               <Typography variant="body1" component="label">
-                                Write your review <span className="required">*</span>
-                              </Typography>
+                              Write your review <span className="required">*</span>
+                            </Typography>
                             <textarea
                               type="text"
                               name="review"
-                              className="form-control inputField"
+                              className={classes.textField}
                               placeholder="Write Here... *"
                               value={commentData.review}
                               onChange={(e) => handleChange(e)}
                               required
+                              style={{ width: "100%", minHeight: "75px" }}
+                              rows={3}
                             />
                             {isLoading ? (
                               <div className={classes.spinnerContainer}>
                                 <Spinner />
                               </div>
                             ) : (
-                              <button type="submit" className="PrimaryButton">
+                              <button type="submit" className="PrimaryButton" style={{ width: "100%", marginTop: "20px" }}>
                                 Submit
                               </button>
                             )}
