@@ -18,7 +18,8 @@ import AppointmentsScreen from './Components/Appointment/AppointmentScreen';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // Import the ServiceProviderAppointments component
 import ServiceProviderAppointments from './Components/Appointment/ServiceProviderAppointments';
-import Footer from "./Components/Footer";
+// import Footer from "./Components/Footer";
+import Footer from "./Components/Footern";
 
 import UserProfile from './Components/UserProfile/UserProfile';
 import NotificationComponent from "./Components/NotificationComponent";
@@ -41,7 +42,7 @@ const App = () => {
               <Route path="/services" element={<Services />} />
               <Route path="/category/:category" element={<CategoryUserList />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/contactus" element={<ContactUs />} />
+                <Route path="/contact" element={<ContactUs />} />
                 <Route path="/faqs" element={<FAQs />} />
                 <Route path="/details" element={<DetailsPage />} />
                 <Route path="/booking" element={<BookingRequest />} />

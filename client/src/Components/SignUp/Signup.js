@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import "./Signup.css";
 import useStyles from "../../styles/styles.js";
 import { useFormik } from "formik";
@@ -92,7 +92,8 @@ const Signup = () => {
             <p className="subtitle">Local Service Marketplace</p>
           </div>
           <form className="form" onSubmit={formik.handleSubmit}>
-            <label>
+            <div>
+            {/* <label>
               Name <span className="required">*</span>
             </label>
             <input
@@ -104,8 +105,28 @@ const Signup = () => {
               className="form-control inputField"
               placeholder="Name *"
               required
+            /> */}
+
+            <Typography>
+              Name <span className="required">*</span>
+            </Typography>
+            <TextField
+              type="text"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={classes.textField}
+              placeholder="Name *"
+              variant="outlined"
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+              required
+              fullWidth
+              style={{ marginTop: "10px" }}
             />
-            <label>
+
+            {/* <label>
               Email <span className="required">*</span>
             </label>
             <input
@@ -117,8 +138,28 @@ const Signup = () => {
               className="form-control inputField"
               placeholder="Email *"
               required
-            />
-            <label>
+            /> */}
+
+            <Typography>
+              Email <span className="required">*</span>
+            </Typography>
+            <TextField
+              type="email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={classes.textField}
+              placeholder="Email *"
+              variant="outlined"
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              required
+              fullWidth
+              style={{ marginTop: "10px" }}
+            />    
+
+            {/* <label>
               Password <span className="required">*</span>
             </label>
             <div className="password-container">
@@ -131,7 +172,27 @@ const Signup = () => {
                 className="form-control inputField"
                 placeholder="Password *"
                 required
-              />
+              /> */}
+
+            <Typography>
+              Password <span className="required">*</span>
+            </Typography>
+            <TextField
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={classes.textField}
+              placeholder="Password *"
+              variant="outlined"
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+              required
+              fullWidth
+              style={{ marginTop: "10px" }}
+            />
+
               <span
                 className="toggle-password"
                 onClick={togglePasswordVisibility}
@@ -139,31 +200,48 @@ const Signup = () => {
                 {passwordVisible ? <RemoveRedEyeIcon style={{fontSize: "20px"}} /> : <VisibilityOffIcon style={{fontSize: "20px"}} />}
               </span>
             </div>
-            <label>
+            <Typography>
               Confirm Password <span className="required">*</span>
-            </label>
-            <input
+            </Typography>
+            <TextField
               type="password"
               name="confirmPassword"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="form-control inputField"
+              className={classes.textField}
               placeholder="Confirm Password *"
+              variant="outlined"
+              error={
+                formik.touched.confirmPassword &&
+                Boolean(formik.errors.confirmPassword)
+              }
+              helperText={
+                formik.touched.confirmPassword && formik.errors.confirmPassword
+              }
               required
+              fullWidth
+              style={{ marginTop: "10px" }}
             />
-            <label>
+
+            {/* Contact Field */}
+            <Typography>
               Contact <span className="required">*</span>
-            </label>
-            <input
+            </Typography>
+            <TextField
               type="text"
               name="contact"
               value={formik.values.contact}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className="form-control inputField"
+              className={classes.textField}
               placeholder="Contact *"
+              variant="outlined"
+              error={formik.touched.contact && Boolean(formik.errors.contact)}
+              helperText={formik.touched.contact && formik.errors.contact}
               required
+              fullWidth
+              style={{ marginTop: "10px" }}
             />
             <div>
               <label>

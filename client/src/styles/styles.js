@@ -125,11 +125,12 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     flexGrow: 1,
     padding: "10px",
-    maxWidth: "700px",
+    maxWidth: "100%",
     margin: "30px auto",
   },
   form: {
     marginTop: "30px",
+    width: "100%!important",
   },
   formHeading: {
     textAlign: "center",
@@ -227,8 +228,10 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: theme.spacing(2),
-    marginTop: "auto",
+    marginTop: "50px",
+    paddingTop:"30px",
     backgroundColor: "white",
+    borderTop: "1px solid #526d82", // Add the top border with the specified color
   },
   column: {
     display: "flex",
@@ -249,6 +252,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     textAlign: "center",
     overflowX: "hidden",
+    gap: "20px",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column", // Change flex direction to column on mobile devices
       padding: theme.spacing(4, 2), // Adjusted padding on mobile devices
