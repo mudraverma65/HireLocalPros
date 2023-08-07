@@ -187,6 +187,16 @@ const Header = () => {
               )}
             </Menu>
           </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box className={classes.notificationModal}>
+              <NotificationComponent notifications={notifications} />
+            </Box>
+          </Modal>
         </Hidden>
         <Hidden xsDown>
           <div>
