@@ -68,7 +68,6 @@ exports.getAppointmentByServiceProviderId = async (req, res) => {
       await AppointmentService.getAppointmentsByServiceProviderId(
         req.params.id
       );
-    console.log("Appointments found for Service Provider ID:", req.params.id, ":", appointments);
     res.send(appointments);
   } catch (error) {
     console.error("Error getting appointments by Service Provider ID:", req.params.id, ":", error);
