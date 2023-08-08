@@ -33,11 +33,9 @@ exports.scheduleAppointment = async (appointmentDetails) => {
     const notificationDetails = {
       userId: appointmentDetails.userId,
       title: "Appointment Scheduled",
-      content: `Your appointment has been scheduled successfully with ${
-        serviceProvider.name
-      }.`,
-      email : appointmentDetails.contactEmail ,
-      status: "Appointment Scheduled"
+      content: `Your appointment has been scheduled successfully with ${serviceProvider.name}.`,
+      email: appointmentDetails.contactEmail,
+      status: "Appointment Scheduled",
     };
 
     await notificationService.createNotification(notificationDetails);
@@ -53,7 +51,9 @@ exports.cancelAppointment = async (appointmentId) => {
     const appointment = await Appointment.findByIdAndDelete(appointmentId);
 
     // Get the user details for the service provider
-    const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+    const serviceProvider = await User.findById(
+      appointment.serviceProviderUserId
+    );
 
     // Get the user details for the user who scheduled the appointment
     const user = await User.findById(appointment.userId);
@@ -64,7 +64,7 @@ exports.cancelAppointment = async (appointmentId) => {
       title: "Appointment Cancelled",
       content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
       email: appointment.contactEmail,
-      status: "Appointment Cancelled"
+      status: "Appointment Cancelled",
     };
 
     await notificationService.createNotification(notificationDetails);
@@ -104,7 +104,7 @@ exports.getAppointmentById = async (appointmentId) => {
 
 exports.updateAppointmentStatus = async (appointmentId, flag) => {
   try {
-    const appointment = await Appointment.find({appointmentId});
+    const appointment = await Appointment.findById({ _id: appointmentId });
 
     if (!appointment) {
       return {
@@ -118,7 +118,9 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
       await appointment.save();
 
       // Get the user details for the service provider
-      const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+      const serviceProvider = await User.findById(
+        appointment.serviceProviderUserId
+      );
 
       // Get the user details for the user who scheduled the appointment
       const user = await User.findById(appointment.userId);
@@ -129,7 +131,7 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
         title: "Appointment Cancelled",
         content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
         email: appointment.contactEmail,
-        status: "Appointment Updated"
+        status: "Appointment Updated",
       };
 
       await notificationService.createNotification(notificationDetails);
@@ -137,7 +139,9 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
       appointment.appointmentStatus = "confirmed";
       await appointment.save();
 
-      const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+      const serviceProvider = await User.findById(
+        appointment.serviceProviderUserId
+      );
 
       // Get the user details for the user who scheduled the appointment
       const user = await User.findById(appointment.userId);
@@ -148,10 +152,9 @@ exports.updateAppointmentStatus = async (appointmentId, flag) => {
         title: "Appointment Cancelled",
         content: `Your appointment with ${serviceProvider.name} has been cancelled.`,
         email: appointment.contactEmail,
-        status: "Appointment Updated"
+        status: "Appointment Updated",
       };
       await notificationService.createNotification(notificationDetails);
-
     } else {
       return {
         success: false,
@@ -184,7 +187,7 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
     // Update the appointment with the new details
     appointment.appointmentTime = updatedDetails.appointmentTime;
     appointment.appointmentDate = updatedDetails.appointmentDate;
-    appointment.appointmentStatus = updatedDetails.appointmentStatus
+    appointment.appointmentStatus = updatedDetails.appointmentStatus;
     appointment.contactEmail = updatedDetails.contactEmail;
     appointment.serviceDescription = updatedDetails.serviceDescription;
     appointment.appointmentDetails = updatedDetails.appointmentDetails;
@@ -192,7 +195,9 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
     await appointment.save();
 
     // Get the user details for the service provider
-    const serviceProvider = await User.findById(appointment.serviceProviderUserId);
+    const serviceProvider = await User.findById(
+      appointment.serviceProviderUserId
+    );
 
     // Get the user details for the user who scheduled the appointment
     const user = await User.findById(appointment.userId);
@@ -203,7 +208,7 @@ exports.updateAppointmentDetails = async (appointmentId, updatedDetails) => {
       title: "Appointment Details Updated",
       content: `Your appointment details with ${serviceProvider.name} have been updated.`,
       email: appointment.contactEmail,
-      status: "Appointment Details Updated" 
+      status: "Appointment Details Updated",
     };
 
     await notificationService.createNotification(notificationDetails);
