@@ -48,8 +48,8 @@ const App = () => {
                 <Route path="/booking" element={<BookingRequest />} />
                 <Route path="/user-profile" element={<UserProfile />} />
                 <Route path="/notifications" element={<NotificationComponent />} />
-                <Route path="/appointments/:userId" element={<AppointmentsScreen />} />
-                <Route path="/service-provider/:serviceProviderId/appointments" element={<ServiceProviderAppointments />} />
+                <Route path="/appointments" element={<AppointmentsScreen />} />
+                <Route path="/service-provider/appointments" element={<ServiceProviderAppointments />} />
               </Route>
             </Routes>
           </div>

@@ -195,7 +195,7 @@ const BookingRequest = () => {
         navigate(`/service-provider/${serviceProviderId}/appointments`);
       } else {
         const userId = localStorage.getItem("userId");
-        navigate(`/appointments/${userId}`);
+        navigate(`/appointments`);
       }
     } catch (error) {
       console.error(error.response.data);
