@@ -58,21 +58,21 @@ const Testimonials = () => {
       name: 'John Doe',
       position: 'CEO',
       statement:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        'I had an amazing experience with Hire Local Pros! I needed a reliable plumber to fix a leaking pipe in my kitchen, and they connected me with a skilled professional in no time. The plumber arrived promptly and did a fantastic job. The best part was the hassle-free process from start to finish. I highly recommend Hire Local Pros for anyone looking to find trusted service providers quickly and easily.',
     },
     {
       id: 2,
       name: 'Jane Smith',
       position: 'Marketing Manager',
       statement:
-        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        "Finding a reliable electrician used to be a daunting task, but thanks to Hire Local Pros, it's now a breeze! I needed some electrical repairs in my home, and I was impressed with the variety of professionals available on the website. I selected an electrician based on their ratings and reviews, and they did not disappoint. The service was outstanding, and I'll definitely be using Hire Local Pros for all my future needs.",
     },
     {
       id: 3,
       name: 'Alice Johnson',
       position: 'Designer',
       statement:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        "Hire Local Pros made my life so much easier when I needed a house cleaning service. I was able to browse through different cleaning companies in my area and choose the one that suited my preferences and budget. The cleaning crew did a thorough job, and I'm thrilled with the results. I appreciate how user-friendly the website is, and I'll be recommending Hire Local Pros to all my friends and family.",
     },
   ];
 
@@ -94,9 +94,6 @@ const Testimonials = () => {
                   <div>
                     <Typography variant="body2" className={classes.testimonialName}>
                       {review.name}
-                    </Typography>
-                    <Typography variant="body2" className={classes.testimonialPosition}>
-                      {review.position}
                     </Typography>
                   </div>
                 </div>

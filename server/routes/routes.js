@@ -5,6 +5,7 @@ const PostController = require("../controllers/postController");
 const AppointmentController = require("../controllers/appointmentController");
 const ReviewController = require("../controllers/reviewController");
 const listingsController = require("../controllers/listingsController");
+const NotificationsController = require("../controllers/notificationController");
 const authGuard = require("../middlewares/authguard");
 
 // user routes
@@ -44,12 +45,14 @@ router.post("/updateAppointmentStatus/:id", AppointmentController.updateAppointm
 
 router.put("/update/:id", AppointmentController.updateAppointmentDetails);
 
-
-
-
 //Listings routes
 router.get('/category/:category', listingsController.getUsersByCategory);
 
 router.post("/addReview", ReviewController.addReview);
+
+// Notifications Routes
+router.post("/createNotifications", NotificationsController.createNotification);
+router.get("/getNotifications/:id", NotificationsController.getNotificationsByUserId);
+router.get("/deleteNotification/:id", NotificationsController.deleteNotification);
 
 module.exports = router;
