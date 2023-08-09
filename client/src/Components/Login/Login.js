@@ -57,16 +57,16 @@ const Login = () => {
             <p className="subtitle">Local Service Marketplace</p>
           </div>
           <form className="form" onSubmit={formik.handleSubmit}>
-            <Typography>
+            <label>
               Email <span className="required">*</span>
-            </Typography>
-            <TextField
+            </label>
+            <input
               type="email"
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={classes.textField}
+              className="form-control inputField"
               placeholder="Email *"
               variant="outlined"
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -76,16 +76,16 @@ const Login = () => {
               style={{ marginTop: "10px" }}
             />
 
-            <Typography>
+            <label>
               Password <span className="required">*</span>
-            </Typography>
-            <TextField
+            </label>
+            <input
               type="password"
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={classes.textField}
+              className="form-control inputField"
               placeholder="Password *"
               variant="outlined"
               error={formik.touched.password && Boolean(formik.errors.password)}
@@ -94,16 +94,6 @@ const Login = () => {
               fullWidth
               style={{ marginTop: "10px" }}
             />
-
-            {isLoading ? (
-              <div className={classes.spinnerContainer}>
-                <Spinner />
-              </div>
-            ) : (
-              <button type="submit" className={classes.button}>
-                Login
-              </button>
-            )}
 
             {formik.touched.email && formik.errors.email && (
               <div className="error">
@@ -116,6 +106,16 @@ const Login = () => {
                 <CancelIcon />
                 <p>{formik.errors.password}</p>
               </div>
+            )}
+
+            {isLoading ? (
+              <div className={classes.spinnerContainer}>
+                <Spinner />
+              </div>
+            ) : (
+              <button type="submit" className={classes.button}>
+                Login
+              </button>
             )}
 
             <NavLink className="link forgot" to="/forgot">
