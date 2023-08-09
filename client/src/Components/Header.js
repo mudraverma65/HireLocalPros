@@ -29,11 +29,10 @@ const Header = () => {
 
   const getAppointmentsRoute = () => {
     if (isServiceProvider) {
-      const serviceProviderId = localStorage.getItem("userId");
-      return `/service-provider/${serviceProviderId}/appointments`;
+      return `/service-provider/appointments`;
     } else {
-      const userId = localStorage.getItem("userId");
-      return `/appointments/${userId}`;
+      localStorage.getItem("userId");
+      return `/appointments`;
     }
   };
   const classes = useStyles();
