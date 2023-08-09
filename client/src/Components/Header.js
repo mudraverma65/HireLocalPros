@@ -46,9 +46,10 @@ const Header = () => {
 
   const fetchNotifications = async () => {
     const response = await GetNotifications(localStorage.getItem("userId"));
-    console.log(response.data);
-    setNotifications(response.data);
-    setNotificationCount(response.data.length);
+    if(response.data) {
+      setNotifications(response.data);
+      setNotificationCount(response.data.length);
+    }
   };
 
   useEffect(() => {
@@ -130,19 +131,24 @@ const Header = () => {
               open={Boolean(menuAnchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem
-                component={Link}
-                onClick={handleNotificationCloseResponsive}
-              >
-                <Badge
-                  badgeContent={notificationCount}
-                  color="secondary"
-                  className={classes.notifications}
-                  onClick={handleOpen}
+              {localStorage.getItem("userId") ? (
+                <MenuItem
+                  component={Link}
+                  onClick={handleNotificationCloseResponsive}
                 >
-                  <NotificationsIcon color="primary" />
-                </Badge>
-              </MenuItem>
+                  <Badge
+                    badgeContent={notificationCount}
+                    color="secondary"
+                    className={classes.notifications}
+                    onClick={handleOpen}
+                  >
+                    <NotificationsIcon color="primary" />
+                  </Badge>
+                </MenuItem>
+              ) : (
+                ""
+              )}
+
               <MenuItem
                 component={Link}
                 to="/services"
@@ -172,7 +178,7 @@ const Header = () => {
               >
                 My Profile
               </MenuItem>
-              {!isLoggedIn ? (
+              {!localStorage.getItem("userId") ? (
                 <MenuItem
                   component={Link}
                   to="/login"
@@ -200,14 +206,19 @@ const Header = () => {
         </Hidden>
         <Hidden xsDown>
           <div>
-            <Badge
-              badgeContent={notificationCount}
-              color="secondary"
-              className={classes.notifications}
-              onClick={handleOpen}
-            >
-              <NotificationsIcon color="primary" />
-            </Badge>
+            {localStorage.getItem("userId") ? (
+              <Badge
+                badgeContent={notificationCount}
+                color="secondary"
+                className={classes.notifications}
+                onClick={handleOpen}
+              >
+                <NotificationsIcon color="primary" />
+              </Badge>
+            ) : (
+              ""
+            )}
+
             <Button
               className={classes.menuButton}
               component={Link}
@@ -240,7 +251,7 @@ const Header = () => {
             >
               My Profile
             </Button>
-            {!isLoggedIn ? (
+            {!localStorage.getItem("userId") ? (
               <Button
                 className={classes.menuButton}
                 component={Link}
