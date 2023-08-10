@@ -4,7 +4,7 @@ import "./Forgotpassword.css";
 import { useNavigate, NavLink } from "react-router-dom";
 import useStyles from "../../styles/styles.js";
 import { useFormik } from "formik";
-import { LoginValidationSchema } from "../../util/validationSchema";
+import { ForgotPasswordValidationSchema } from "../../util/validationSchema";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { toast } from "react-toastify";
 import { ResetPassword } from "../../services/user.service";
@@ -18,7 +18,7 @@ const Forgotpassword = () => {
       email: "",
       password: "",
     },
-    validationSchema: LoginValidationSchema,
+    validationSchema: ForgotPasswordValidationSchema,
     onSubmit: async (data) => {
       setIsLoading(true);
       try {

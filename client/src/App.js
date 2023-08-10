@@ -4,11 +4,11 @@ import LandingPage from "./Components/LandingPage";
 import ContactUs from "./Components/ContactUs";
 import FAQs from "./Components/FAQs";
 import Header from "./Components/Header";
-import Login from "./Components/Login/Login";
-import Signup from "./Components/SignUp/Signup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoutes";
+import Login from "./Components/Login/Login";
+import Signup from "./Components/SignUp/Signup";
 import Forgotpassword from "./Components/forgotpassword/Forgotpassword";
 import DetailsPage from "./Components/DetailsPage/DetailsPage";
 import Services from "./Components/Listings/Services"
@@ -48,8 +48,8 @@ const App = () => {
                 <Route path="/booking" element={<BookingRequest />} />
                 <Route path="/user-profile" element={<UserProfile />} />
                 <Route path="/notifications" element={<NotificationComponent />} />
-                <Route path="/appointments/:userId" element={<AppointmentsScreen />} />
-                <Route path="/service-provider/:serviceProviderId/appointments" element={<ServiceProviderAppointments />} />
+                <Route path="/appointments" element={<AppointmentsScreen />} />
+                <Route path="/service-provider/appointments" element={<ServiceProviderAppointments />} />
               </Route>
             </Routes>
           </div>

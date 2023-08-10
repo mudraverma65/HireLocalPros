@@ -32,13 +32,10 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={3} lg={3} className={classes.column}>
             <Typography variant="h6">Profile</Typography>
-            <Link to="/appointments" className={classes.link}>
-              Appointments
-            </Link>
             <Link to="/login" className={classes.link}>
               Login
             </Link>
-            <Link to="/profile" className={classes.link}>
+            <Link to="/user-profile" className={classes.link}>
               Profile
             </Link>
           </Grid>
