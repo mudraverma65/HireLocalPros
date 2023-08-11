@@ -16,9 +16,7 @@ import CategoryUserList from "./Components/Listings/CategoryUserList";
 import BookingRequest from './Components/Appointment/BookingRequest'; // Import the BookingRequest component
 import AppointmentsScreen from './Components/Appointment/AppointmentScreen';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// Import the ServiceProviderAppointments component
 import ServiceProviderAppointments from './Components/Appointment/ServiceProviderAppointments';
-// import Footer from "./Components/Footer";
 import Footer from "./Components/Footern";
 
 import UserProfile from './Components/UserProfile/UserProfile';
