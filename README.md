@@ -2,9 +2,9 @@
 
 # ![Local Image](./client/src/images/logorbg.png)
 
-## LocalServices
+## HireLocalPros
 
-* LocalServices is a user-friendly platform that offers a hassle-free way for individuals to discover and engage with nearby service providers. With a focus on convenience, the website aims to simplify the process of hiring local services by providing detailed information such as service descriptions, provider profiles, pricing, and availability. By facilitating seamless communication between users and service providers, the platform optimizes the hiring process, ensuring that finding and hiring dependable local professionals is both effortless and efficient.
+* HireLocalPros is a user-friendly platform that offers a hassle-free way for individuals to discover and engage with nearby service providers. With a focus on convenience, the website aims to simplify the process of hiring local services by providing detailed information such as service descriptions, provider profiles, pricing, and availability. By facilitating seamless communication between users and service providers, the platform optimizes the hiring process, ensuring that finding and hiring dependable local professionals is both effortless and efficient.
 
 ## Authors
 
